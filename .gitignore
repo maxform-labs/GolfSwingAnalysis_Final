@@ -1,0 +1,41 @@
+# Python 가상환경
+venv/
+env/
+ENV/
+
+# Python 캐시 파일
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 데이터베이스 파일
+*.db
+*.sqlite3
+
+# 로그 파일
+*.log
+
+# 임시 파일
+*.tmp
+*.temp
+nul
+
+# IDE 설정 파일
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# 문서 파일 (요청에 따라 제외)
+수정된_알고리즘_설계서.md
+수정된_알고리즘_설계서.html
+corrected_algorithm_specification.md
+golf_swing_validation_report.json
+
+# 결과 디렉토리
+realistic_achievement_results/

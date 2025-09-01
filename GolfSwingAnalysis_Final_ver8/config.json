@@ -1,0 +1,50 @@
+{
+  "app_name": "GolfSwingAnalysis",
+  "app_version": "2.0",
+  "display_optimization": {
+    "screen_size": "13_inch",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "scaling": 125,
+    "window_size": [
+      1536,
+      864
+    ],
+    "font_size": 12,
+    "ui_scale": 1.25
+  },
+  "camera_settings": {
+    "top_camera_index": 0,
+    "bottom_camera_index": 1,
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 60,
+    "exposure": -3,
+    "brightness": 50
+  },
+  "stereo_settings": {
+    "vertical_baseline": 400.0,
+    "inward_angle": 12.0,
+    "installation_height": 350.0,
+    "roi_size": [
+      800,
+      600
+    ]
+  },
+  "performance_settings": {
+    "max_cpu_usage": 70,
+    "memory_limit_mb": 2048,
+    "processing_threads": 2,
+    "gpu_acceleration": false
+  },
+  "ui_settings": {
+    "fullscreen": false,
+    "always_on_top": false,
+    "minimize_to_tray": true,
+    "auto_hide_cursor": false
+  }
+}

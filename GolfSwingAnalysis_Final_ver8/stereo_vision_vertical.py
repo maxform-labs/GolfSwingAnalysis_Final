@@ -35,30 +35,38 @@ class CameraParameters:
 
 @dataclass
 class VerticalStereoConfig:
-    """수직형 스테레오 구성 설정"""
-    vertical_baseline: float = 400.0  # mm, 수직 간격 (최적화)
-    inward_angle: float = 12.0  # degrees, 내향 각도 (최적화)
-    installation_height: float = 450.0  # mm, 설치 높이
-    detection_zone_size: Tuple[float, float] = (400.0, 400.0)  # mm, 볼 인식 영역
-    measurement_zone_size: Tuple[float, float] = (800.0, 800.0)  # mm, 볼 측정 영역
-    max_distance_from_tee: float = 500.0  # mm, 티로부터 최대 거리
-    target_fps: int = 240  # 목표 FPS
+    """수직형 스테레오 구성 설정 - 실제 현장 설치 사양"""
+    vertical_baseline: float = 500.0  # mm, 실제 카메라 간 수직 간격 (900-400)
+    camera1_height: float = 400.0  # mm, 카메라1 바닥에서 높이
+    camera2_height: float = 900.0  # mm, 카메라2 바닥에서 높이
+    camera1_angle: float = 0.0  # degrees, 카메라1 각도 (수직)
+    camera2_angle: float = 12.0  # degrees, 카메라2 각도 (후면으로 젖혀짐)
+    tee_distance: float = 500.0  # mm, 카메라에서 Tee까지 거리
+    calibration_area_x: Tuple[float, float] = (-200.0, 200.0)  # mm, 캘리브레이션 X 범위
+    calibration_area_y: Tuple[float, float] = (-200.0, 200.0)  # mm, 캘리브레이션 Y 범위
+    target_fps: int = 820  # 목표 FPS (발주사 요구사항)
     processing_threads: int = 4  # 처리 스레드 수
+    # 1440x300 해상도 특화 파라미터
+    image_resolution: Tuple[int, int] = (1440, 300)  # 발주사 gotkde해상도
+    gpu_memory_limit: float = 6.0  # GB (GTX 3050 8GB 중 6GB 사용)
 
-class KalmanTracker3D:
-    """3D 칼만 필터 추적기"""
+class KalmanTracker3D_820fps:
+    """820fps 1440x300 최적화 3D 칼만 필터 추적기"""
     
     def __init__(self):
+        self.fps = 820
+        self.dt = 1.0 / 820  # 1.22ms per frame
+        
         self.kalman = cv2.KalmanFilter(6, 3)  # 6 상태, 3 측정값
         
-        # 상태 전이 행렬 (위치 + 속도)
+        # 820fps에 최적화된 상태 전이 행렬 (위치 + 속도)
         self.kalman.transitionMatrix = np.array([
-            [1, 0, 0, 1, 0, 0],
-            [0, 1, 0, 0, 1, 0],
-            [0, 0, 1, 0, 0, 1],
-            [0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 1]
+            [1, 0, 0, self.dt, 0,       0      ],
+            [0, 1, 0, 0,       self.dt, 0      ],
+            [0, 0, 1, 0,       0,       self.dt],
+            [0, 0, 0, 1,       0,       0      ],
+            [0, 0, 0, 0,       1,       0      ],
+            [0, 0, 0, 0,       0,       1      ]
         ], dtype=np.float32)
         
         # 측정 행렬
@@ -68,9 +76,10 @@ class KalmanTracker3D:
             [0, 0, 1, 0, 0, 0]
         ], dtype=np.float32)
         
-        # 노이즈 공분산 설정
-        self.kalman.processNoiseCov = np.eye(6, dtype=np.float32) * 0.1
-        self.kalman.measurementNoiseCov = np.eye(3, dtype=np.float32) * 0.1
+        # 820fps 고속 촬영에 최적화된 노이즈 공분산 설정
+        # 높은 프레임 레이트로 인한 정밀한 측정을 반영
+        self.kalman.processNoiseCov = np.eye(6, dtype=np.float32) * 0.005  # 더 낮은 프로세스 노이즈
+        self.kalman.measurementNoiseCov = np.eye(3, dtype=np.float32) * 0.02  # 더 낮은 측정 노이즈
         
     def predict(self):
         """상태 예측"""
@@ -113,12 +122,24 @@ class VerticalStereoVision:
         self.executor = ThreadPoolExecutor(max_workers=config.processing_threads)
         
     def _init_gpu_resources(self):
-        """GPU 리소스 초기화"""
+        """GTX 3050 최적화 GPU 리소스 초기화"""
         if self.gpu_available:
+            # GTX 3050 메모리 관리를 위한 작은 버퍼 사용
             self.gpu_frame_upper = cv2.cuda_GpuMat()
             self.gpu_frame_lower = cv2.cuda_GpuMat()
             self.gpu_disparity = cv2.cuda_GpuMat()
-            self.stereo_matcher_gpu = cv2.cuda.createStereoBM(numDisparities=64, blockSize=15)
+            
+            # 1440x300 해상도에 최적화된 스테레오 매처
+            # GTX 3050은 메모리가 제한적이므로 파라미터 조정
+            self.stereo_matcher_gpu = cv2.cuda.createStereoBM(
+                numDisparities=48,  # 64 -> 48로 축소 (메모리 절약)
+                blockSize=11        # 15 -> 11로 축소 (속도 향상)
+            )
+            
+            # GPU 메모리 사용량 모니터링
+            self.gpu_memory_monitor = GPUMemoryMonitor()
+            
+            logger.info(f"GTX 3050 최적화 GPU 리소스 초기화 완료")
     
     def calibrate_cameras(self, calibration_images: List[Tuple[np.ndarray, np.ndarray]], 
                          pattern_size: Tuple[int, int] = (9, 6)) -> bool:
@@ -255,10 +276,11 @@ class VerticalStereoVision:
         """
         start_time = self.performance_monitor.start_timing('stereo_matching')
         
+        # 1440x300 해상도와 GTX 3050에 최적화된 시차 계산 선택
         if self.gpu_available:
-            disparity = self._calculate_disparity_gpu(upper_image, lower_image)
+            disparity = self._calculate_disparity_gpu_1440x300_gtx3050(upper_image, lower_image)
         else:
-            disparity = self._calculate_disparity_cpu(upper_image, lower_image)
+            disparity = self._calculate_disparity_cpu_1440x300(upper_image, lower_image)
         
         self.performance_monitor.end_timing('stereo_matching', start_time)
         
@@ -332,15 +354,15 @@ class VerticalStereoVision:
                 d = disparity[y, x]
                 
                 if d > 0:  # 유효한 시차값
-                    # Y축 시차 기반 깊이 계산 (수정된 공식)
-                    Z = self.calculate_vertical_disparity_depth(x, y, d, fy, baseline)
+                    # 1440x300 최적화 Y축 시차 기반 깊이 계산
+                    Z = self.calculate_vertical_disparity_depth_1440x300(x, y, d, fy, baseline)
                     
                     # X, Y 좌표
                     X = (x - cx) * Z / fx
                     Y = (y - cy) * Z / fy
                     
-                    # 내향 각도 보정
-                    X_corrected, Y_corrected, Z_corrected = self._correct_inward_angle(X, Y, Z)
+                    # 실제 현장 카메라 각도 보정
+                    X_corrected, Y_corrected, Z_corrected = self._correct_camera_angles(X, Y, Z)
                     
                     points_3d.append((X_corrected, Y_corrected, Z_corrected))
                 else:
@@ -350,44 +372,112 @@ class VerticalStereoVision:
         
         return points_3d
     
-    def calculate_vertical_disparity_depth(self, x: float, y: float, disparity_y: float, 
-                                         fy: float, baseline: float) -> float:
+    def calculate_vertical_disparity_depth_1440x300(self, x: float, y: float, disparity_y: float, 
+                                                   fy: float, baseline: float) -> float:
         """
-        Y축 시차를 이용한 깊이 계산 (PDF 명세 준수)
+        1440x300 해상도 전용 Y축 시차를 이용한 깊이 계산 (PDF 명세 준수)
         공식: Z = (fy × baseline) / (y_top - y_bottom)
         
+        1440x300 해상도 특성:
+        - 세로 해상도 300픽셀로 제한되어 있음
+        - 하지만 수직 스테레오에는 충분한 해상도
+        - 시차 정밀도는 유지하면서 처리 속도 극대화
+        
         Args:
-            x: X 좌표 (참조용)
-            y: Y 좌표 (참조용)  
-            disparity_y: Y축 시차값
-            fy: Y방향 초점거리
+            x: X 좌표 (1440픽셀 기준)
+            y: Y 좌표 (300픽셀 기준)  
+            disparity_y: Y축 시차값 (300픽셀 내에서)
+            fy: Y방향 초점거리 (300픽셀 해상도 기준)
             baseline: 수직 기준선 거리
             
         Returns:
             계산된 깊이 (mm 단위)
         """
-        # 최소 시차값으로 0으로 나누기 방지
-        if abs(disparity_y) < 0.1:
+        # 300픽셀 해상도에 맞춘 최소 시차값 조정
+        # 낮은 해상도를 고려하여 임계값 증가
+        min_disparity_threshold = 0.2  # 0.1 -> 0.2로 증가
+        
+        if abs(disparity_y) < min_disparity_threshold:
             return float('inf')
         
-        # Y축 시차 기반 깊이 계산
-        depth = (fy * baseline) / disparity_y
+        # Y축 시차 기반 깊이 계산 (1440x300 최적화)
+        depth = (fy * baseline) / abs(disparity_y)
         
-        # 물리적 제약 조건 적용 (0.5m ~ 50m)
-        depth = np.clip(depth, 500.0, 50000.0)  # mm 단위
+        # 1440x300 해상도 특성을 고려한 물리적 제약 조건
+        # 세로 해상도가 낮아 원거리 정확도가 제한됨
+        depth = np.clip(depth, 500.0, 20000.0)  # 50m -> 20m로 제한
+        
+        # 1440x300 해상도 보정 계수 적용
+        resolution_correction = 300 / 1080  # 기준 해상도 대비 보정
+        depth *= (1.0 + 0.1 * (1 - resolution_correction))  # 미세 조정
         
         return depth
     
-    def _correct_inward_angle(self, x: float, y: float, z: float) -> Tuple[float, float, float]:
-        """내향 각도 보정"""
-        angle_rad = np.radians(self.config.inward_angle)
+    def _correct_camera_angles(self, x: float, y: float, z: float) -> Tuple[float, float, float]:
+        """실제 현장 설치 카메라 각도 보정
         
-        # 회전 행렬 적용
-        x_corrected = x * np.cos(angle_rad) + z * np.sin(angle_rad)
+        카메라1: 바닥에서 400mm, 각도 0° (수직)
+        카메라2: 바닥에서 900mm, 각도 12° (후면으로 젖혀짐)
+        """
+        # 카메라2의 12° 후면 각도 보정
+        angle_rad = np.radians(self.config.camera2_angle)
+        
+        # Y축 중심 회전 (후면으로 젖혀진 각도)
+        x_corrected = x * np.cos(angle_rad) - z * np.sin(angle_rad)
         y_corrected = y
-        z_corrected = -x * np.sin(angle_rad) + z * np.cos(angle_rad)
+        z_corrected = x * np.sin(angle_rad) + z * np.cos(angle_rad)
+        
+        # 높이 차이 보정 (500mm 수직 간격)
+        height_offset = self.config.camera2_height - self.config.camera1_height  # 500mm
+        y_corrected += height_offset * np.sin(angle_rad)
         
         return x_corrected, y_corrected, z_corrected
+    
+    def convert_to_tee_coordinates(self, points_3d: List[Tuple[float, float, float]]) -> List[Tuple[float, float, float]]:
+        """카메라 좌표계를 Tee 중심 좌표계로 변환
+        
+        실제 현장 설치 사양:
+        - Tee는 카메라에서 정면으로 500mm 거리
+        - 캘리브레이션 영역: Tee 중심 ±200mm (정사각형)
+        
+        Args:
+            points_3d: 카메라 좌표계의 3D 점들
+            
+        Returns:
+            Tee 중심 좌표계의 3D 점들
+        """
+        tee_centered_points = []
+        
+        for x_cam, y_cam, z_cam in points_3d:
+            if x_cam == 0.0 and y_cam == 0.0 and z_cam == 0.0:
+                tee_centered_points.append((0.0, 0.0, 0.0))
+                continue
+                
+            # Tee 중심으로 좌표 이동
+            # Z축: 카메라에서 Tee까지 500mm 거리를 기준점으로 설정
+            x_tee = x_cam
+            y_tee = y_cam - self.config.camera1_height  # 바닥 기준으로 변환
+            z_tee = z_cam - self.config.tee_distance  # Tee를 기준점(0)으로 설정
+            
+            tee_centered_points.append((x_tee, y_tee, z_tee))
+        
+        return tee_centered_points
+    
+    def is_in_calibration_area(self, x_tee: float, y_tee: float) -> bool:
+        """점이 캘리브레이션 영역 내부에 있는지 확인
+        
+        캘리브레이션 영역: Tee 중심 X축 ±200mm, Y축 ±200mm (정사각형)
+        
+        Args:
+            x_tee, y_tee: Tee 중심 좌표계의 X, Y 좌표
+            
+        Returns:
+            캘리브레이션 영역 내부 여부
+        """
+        x_min, x_max = self.config.calibration_area_x
+        y_min, y_max = self.config.calibration_area_y
+        
+        return (x_min <= x_tee <= x_max) and (y_min <= y_tee <= y_max)
     
     def save_calibration(self, filename: str):
         """캘리브레이션 결과 저장"""
@@ -513,10 +603,94 @@ class MemoryPool:
         self.available_buffers = queue.Queue()
         self.used_buffers = set()
         
-        # 미리 메모리 버퍼 할당
+        # 1440x300 해상도에 맞춘 메모리 버퍼 할당
         for _ in range(pool_size):
-            buffer = np.zeros((1080, 1920, 3), dtype=np.uint8)
+            buffer = np.zeros((300, 1440, 3), dtype=np.uint8)  # 1440x300 해상도
             self.available_buffers.put(buffer)
+
+class GPUMemoryMonitor:
+    """GTX 3050 GPU 메모리 모니터링 클래스"""
+    
+    def __init__(self):
+        self.max_memory_gb = 8.0  # GTX 3050 8GB VRAM
+        self.safe_limit_gb = 6.0  # 안전 한계 6GB
+        self.warning_threshold = 0.8  # 80% 경고 임계점
+        
+    def get_memory_usage(self) -> float:
+        """현재 GPU 메모리 사용량 반환 (GB)"""
+        try:
+            if cv2.cuda.getCudaEnabledDeviceCount() > 0:
+                free_memory = cv2.cuda.DeviceInfo().freeMemory() / (1024**3)  # GB
+                used_memory = self.max_memory_gb - free_memory
+                return used_memory
+            return 0.0
+        except:
+            return 0.0
+    
+    def get_memory_usage_ratio(self) -> float:
+        """메모리 사용률 반환 (0.0 ~ 1.0)"""
+        used = self.get_memory_usage()
+        return used / self.max_memory_gb
+    
+    def is_memory_warning(self) -> bool:
+        """메모리 경고 상태 확인"""
+        return self.get_memory_usage_ratio() > self.warning_threshold
+    
+    def cleanup_gpu_memory(self):
+        """GPU 메모리 정리"""
+        try:
+            # OpenCV CUDA 메모리 정리
+            cv2.cuda.setDevice(0)
+            cv2.cuda.resetDevice()
+            logger.info("GPU 메모리 정리 완료")
+        except Exception as e:
+            logger.warning(f"GPU 메모리 정리 실패: {e}")
+
+class StereoVision1440x300Optimizer:
+    """1440x300 해상도 전용 스테레오 비전 최적화 클래스"""
+    
+    def __init__(self, config: VerticalStereoConfig):
+        self.config = config
+        self.width = config.image_resolution[0]   # 1440
+        self.height = config.image_resolution[1]  # 300
+        
+        # 1440x300 해상도 특성 분석
+        self.aspect_ratio = self.width / self.height  # 4.8:1
+        self.horizontal_precision = self.width / 1920   # 0.75 (75% 정밀도)
+        self.vertical_precision = self.height / 1080    # 0.278 (28% 정밀도)
+        
+        # GPU 메모리 모니터
+        self.gpu_monitor = GPUMemoryMonitor()
+        
+        logger.info(f"1440x300 해상도 최적화 초기화: 종횡비 {self.aspect_ratio:.1f}:1")
+    
+    def optimize_detection_roi(self, frame: np.ndarray) -> Tuple[int, int, int, int]:
+        """
+        1440x300 해상도에 최적화된 골프볼 검출 ROI 설정
+        
+        전략:
+        - 수평 1440픽셀을 최대 활용
+        - 수직 300픽셀에서 효율적인 중앙 영역 사용
+        - 골프볼이 주로 나타나는 중앙 영역에 집중
+        
+        Returns:
+            (x1, y1, x2, y2) ROI 좌표
+        """
+        # ROI 크기 설정 (1440x300 해상도 최적화)
+        roi_width = min(600, self.width)    # 수평 600픽셀 (충분한 영역)
+        roi_height = min(200, self.height)  # 수직 200픽셀 (300픽셀 중 중앙)
+        
+        # 중앙 위치 계산
+        center_x = self.width // 2
+        center_y = self.height // 2
+        
+        # ROI 좌표 계산
+        x1 = max(0, center_x - roi_width // 2)
+        x2 = min(self.width, center_x + roi_width // 2)
+        y1 = max(0, center_y - roi_height // 2)
+        y2 = min(self.height, center_y + roi_height // 2)
+        
+        return x1, y1, x2, y2
     
     def get_buffer(self) -> np.ndarray:
         """버퍼 가져오기"""
@@ -525,8 +699,8 @@ class MemoryPool:
             self.used_buffers.add(id(buffer))
             return buffer
         else:
-            # 풀이 비어있으면 새로 할당
-            return np.zeros((1080, 1920, 3), dtype=np.uint8)
+            # 풀이 비어있으면 새로 할당 (1440x300)
+            return np.zeros((300, 1440, 3), dtype=np.uint8)
     
     def return_buffer(self, buffer: np.ndarray):
         """버퍼 반환"""

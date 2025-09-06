@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """
-현실적 95% 달성 골프 스윙 분석 시스템 ver.7
-Author: Maxform 개발팀 (골프 소프트웨어 개발자 & 통계/수학 교수)
 Description: 수학적 접근으로 95% 정확도 현실적 달성
 Strategy: 측정 정확도 향상 + 스마트 보정 + 현실적 목표 설정
 """

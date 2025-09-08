@@ -1,0 +1,27 @@
+{
+  "shot_info": {
+    "name": "7번아이언_로고마커없는볼_샷1",
+    "source_dir": "C:\\src\\GolfSwingAnalysis_Final_ver8\\shot-image\\7번 아이언\\로고, 마커없는 볼-1",
+    "total_frames": 46,
+    "fps": 820
+  },
+  "ball_data": {
+    "detected_frames": 0,
+    "3d_positions": [],
+    "velocities": null,
+    "max_speed_mph": 0,
+    "launch_angle": null
+  },
+  "club_data": {
+    "detected_frames": 0,
+    "3d_positions": [],
+    "velocities": null,
+    "max_speed_mph": 0
+  },
+  "raw_detections": {
+    "top_camera_balls": [],
+    "top_camera_clubs": [],
+    "bottom_camera_balls": [],
+    "bottom_camera_clubs": []
+  }
+}

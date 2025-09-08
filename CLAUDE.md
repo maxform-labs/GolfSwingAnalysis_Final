@@ -272,6 +272,19 @@ python test_playwright.py
 - **12° 내향 각도**: 고정밀 회전 행렬 보정
 - **좌표계 변환**: 물리적 좌표(mm) ↔ 픽셀 좌표 변환
 
+### 파일 경로 및 이미지 처리 (v4.1 업데이트)
+- **영어 경로 사용**: OpenCV 호환성을 위해 한글 경로를 영어로 변환
+- **폴더명 매핑**:
+  - `7번 아이언` → `7iron`
+  - `로고, 마커없는 볼-1` → `no_marker_ball-1`
+  - `로고, 마커없는 볼-2` → `no_marker_ball-2`
+  - `로고볼-1` → `logo_ball-1`
+  - `로고볼-2` → `logo_ball-2`
+  - `마커볼` → `marker_ball`
+  - `드라이버` → `driver`
+- **분석 도구**: `english_path_analyzer.py` - 영어 경로 기반 포괄적 분석
+- **BMP→JPG 변환**: PIL 사용으로 한글 경로 호환성 확보
+
 ### 핵심 기술 용어 (실제 구현 기준)
 - **수직 스테레오 비전** (Vertical Stereo Vision): Y축 시차 기반 깊이 측정 - `calculate_vertical_disparity_depth_1440x300()`
 - **820fps 칼만 필터** (Kalman Filter): 고속 촬영 최적화 필터 - `KalmanTracker3D_820fps`

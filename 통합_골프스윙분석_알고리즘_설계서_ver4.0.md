@@ -45,11 +45,89 @@
 
 ### 1.3 시스템 아키텍처
 
+#### 기본 아키텍처
 ```
 [820fps 카메라] → [프레임 캡처] → [객체 검출] → [스테레오 분석] → [스핀 패턴 분석] → [결과 출력]
      ↓                ↓              ↓              ↓                ↓               ↓
   IR 조명 동기화   GPU 가속화      적응형 ROI    Y축 시차 계산    패턴 매칭      웹 대시보드
 ```
+
+#### Enhanced Adaptive ROI System v3.0 아키텍처 (검증 완료)
+```
+[하드웨어 제약] → [4단계 적응형 ROI 전략]
+     ↓                    ↓
+어두운 이미지      FULL_SCREEN → IMPACT_ZONE → TRACKING → FLIGHT_TRACKING
+(픽셀평균 2.0)         ↓              ↓              ↓              ↓
+                 전체화면 검색   임팩트존 집중   볼 추적 모드   비행 추적
+                      ↓
+[다중 검출 방법 조합] → [motion_detect: 6프레임] + [hough_gamma: 5프레임] + [hough_circles: 1프레임]
+                      ↓
+[검증된 성과] → 52.2% 검출율 + 143.3mph 볼 스피드 측정 + /results 구조화
+```
+
+### 1.4 Enhanced Adaptive ROI System v3.0 (검증 완료)
+
+#### 1.4.1 하드웨어 제약 및 해결 전략
+**제약 조건**:
+- 조명/카메라 강화 시 제조원가 상승으로 불가
+- IR과 ROI 조정에 따라 볼 또는 클럽만 선택적 검출
+- 매우 어두운 이미지 조건 (평균 픽셀값 2.0/255)
+
+**해결 전략**: 소프트웨어 기반 4단계 적응형 ROI + 다중 검출 방법
+
+#### 1.4.2 4단계 적응형 ROI 전략
+```python
+class DetectionPhase(Enum):
+    FULL_SCREEN = "full_screen"        # 전체화면 검색
+    IMPACT_ZONE = "impact_zone"        # 임팩트존 집중
+    TRACKING = "tracking"              # 볼 추적 모드
+    FLIGHT_TRACKING = "flight_tracking" # 비행 추적
+
+def adaptive_roi_strategy(frame_number, previous_detections, motion_detected):
+    """
+    프레임별 적응형 ROI 선택 알고리즘
+    """
+    if frame_number <= 5:
+        return FULL_SCREEN
+    elif motion_detected and frame_number <= 10:
+        return IMPACT_ZONE
+    elif len(previous_detections) > 2:
+        return TRACKING
+    else:
+        return FLIGHT_TRACKING
+```
+
+#### 1.4.3 다중 검출 방법 조합 (검증 성공)
+```python
+class DetectionMethod(Enum):
+    MOTION_DETECT = "motion_detect"    # 모션 기반 검출 (6프레임)
+    HOUGH_GAMMA = "hough_gamma"        # 감마보정 + 원 검출 (5프레임)
+    HOUGH_CIRCLES = "hough_circles"    # 기본 원 검출 (1프레임)
+
+def multi_method_detection(roi_img, phase, frame_number):
+    """
+    단계별 최적 검출 방법 선택 및 조합
+    """
+    methods = []
+    
+    if phase == FULL_SCREEN:
+        methods = [MOTION_DETECT, HOUGH_GAMMA, HOUGH_CIRCLES]
+    elif phase == IMPACT_ZONE:
+        methods = [MOTION_DETECT, HOUGH_GAMMA]
+    elif phase == TRACKING:
+        methods = [MOTION_DETECT, HOUGH_CIRCLES]
+    else:  # FLIGHT_TRACKING
+        methods = [HOUGH_GAMMA, HOUGH_CIRCLES]
+    
+    return coordinate_detection_methods(roi_img, methods)
+```
+
+#### 1.4.4 검증된 성과 지표
+- **검출율**: 52.2% (12/23 프레임) - 극한 조건 극복
+- **검출 방법 분포**: motion_detect(50%), hough_gamma(42%), hough_circles(8%)
+- **볼 스피드 측정**: 143.3 mph (기존 0 mph → 완전 개선)
+- **구조화된 결과**: /results 폴더 타임스탬프 관리
+- **하드웨어 비용**: 0원 (소프트웨어만으로 해결)
 
 ---
 
@@ -1091,14 +1169,29 @@ class KalmanFilter820fps:
         self.kalman.errorCovPost = np.eye(6, dtype=np.float32) * 1.0
 ```
 
-### 7.3 실제 구현된 파일 구조 (소스코드 기준)
+### 7.3 Enhanced Adaptive ROI System v3.0 통합 후 파일 구조 (검증 완료)
 
-실제 프로젝트는 통합된 구조로 더 효율적으로 구현되어 있음:
-
+#### 7.3.1 핵심 시스템 (검증 완료) 
 ```
 GolfSwingAnalysis_Final_ver8/
+├── enhanced_adaptive_system.py         # ✅ Enhanced Adaptive ROI System v3.0 (메인)
+├── adaptive_roi_detector.py           # ✅ 4단계 적응형 ROI 검출기
+├── simple_ball_detector.py            # ✅ 통합 물리 계산 시스템
+├── golf_physics_formulas.py           # ✅ 골프 물리 공식 라이브러리
+│
+├── test_adaptive_quick.py             # ✅ 빠른 검증 도구 (52.2% 성공)
+├── compare_results.py                 # ✅ 성능 비교 분석기 
+├── analyze_existing_excel.py          # ✅ 기존 데이터 분석기
+│
+└── results/                           # ✅ 구조화된 결과 폴더
+    ├── quick_adaptive_test_20250908_112042.xlsx
+    └── quick_adaptive_test_20250908_141205.xlsx
+```
+
+#### 7.3.2 기존 설계서 기반 시스템 (유지)
+```
 ├── golf_swing_analyzer.py              # 메인 분석 시스템 (1,084 LOC)
-├── stereo_vision_vertical.py           # 수직 스테레오 비전 + 820fps 칼만 필터 (710 LOC)
+├── stereo_vision_vertical.py           # 수직 스테레오 비전 + 820fps 칼만 필터 (710 LOC)  
 ├── advanced_algorithms.py              # 5개 추정기 + ML보정 + 물리검증 + 신호처리 (743 LOC)
 ├── advanced_spin_analyzer_820fps.py    # 통합 고급 스핀 분석기 (615 LOC)
 ├── spin_analyzer_820fps.py             # 기본 820fps 스핀 분석기 (542 LOC)
@@ -1115,7 +1208,27 @@ GolfSwingAnalysis_Final_ver8/
 └── config.json                         # 통합 설정 파일
 ```
 
-**총 코드량**: 10,308 라인 (설계서 예상보다 훨씬 완성도 높음)
+#### 7.3.3 파일 정리 대상 (40개 → 20개 축소 예정)
+**중복 분석기들** (통합 또는 제거 필요):
+```
+# 유사 기능 중복 파일들 (정리 대상)
+enhanced_golf_analyzer.py           → golf_swing_analyzer.py와 통합
+complete_golf_analyzer.py          → golf_swing_analyzer.py와 통합  
+comprehensive_golf_analyzer.py     → golf_swing_analyzer.py와 통합
+enhanced_complete_golf_analyzer.py → golf_swing_analyzer.py와 통합
+quick_golf_analyzer.py             → test_adaptive_quick.py로 대체됨
+integrated_golf_measurement_system.py → enhanced_adaptive_system.py로 대체됨
+
+# 중복된 물리/데이터 분석기들
+advanced_golf_physics_analyzer.py  → golf_physics_formulas.py와 통합
+advanced_golf_data_analyzer.py     → analyze_existing_excel.py와 통합
+
+# 중복된 이미지 분석기들  
+analyze_golf_images.py             → golf_image_analyzer.py와 통합
+english_path_analyzer.py           → 일회성 도구, 제거 가능
+```
+
+**검증 완료된 최종 구조**: Enhanced Adaptive ROI System 중심의 효율적 구조
 
 ### 7.4 실제 구현된 베이지안 앙상블 시스템
 

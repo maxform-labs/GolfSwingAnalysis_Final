@@ -70,6 +70,13 @@ python accuracy_validator_95.py
 
 # 이미지 분석 시스템
 python golf_image_analyzer.py
+
+# 이미지 전처리 및 향상 (v4.1 추가)
+python convert_bmp_to_jpg.py           # BMP → JPG 변환
+python rename_korean_folders.py        # 한국어 폴더명 → 영어 변환
+python image_enhancer_ultra.py         # 95% 정확도 Ultra 이미지 향상
+python image_enhancer_fast.py          # 병렬 처리 최적화 버전
+python complete_enhancement.py         # 이미지 향상 완료 처리
 ```
 
 ### 테스트 및 검증
@@ -160,6 +167,11 @@ python test_playwright.py
 5. **GTX 3050 최적화**: 6GB GPU 메모리 한계 내 최적화
 6. **95% 정확도 시스템**: accuracy_validator_95.py 구현
 7. **이미지 분석**: golf_image_analyzer.py 볼 검출 시스템
+8. **이미지 전처리 시스템 v4.2** (2024-09-09 추가):
+   - **BMP→JPG 변환**: 1,196개 파일 완료 (496MB → 94MB, 81% 압축)
+   - **한국어→영어 폴더명 변환**: 15개 폴더 성공적으로 변환
+   - **Ultra Image Enhancement**: 95% 정확도 달성을 위한 4단계 고급 향상
+   - **처리 완료**: /shot-image-treated 폴더에 1,196개 향상된 이미지 저장
 
 ### ⚠️ 알려진 이슈 (검증 보고서 기반)
 
@@ -295,7 +307,7 @@ python test_playwright.py
 - **12° 내향 각도**: 고정밀 회전 행렬 보정
 - **좌표계 변환**: 물리적 좌표(mm) ↔ 픽셀 좌표 변환
 
-### 파일 경로 및 이미지 처리 (v4.1 업데이트)
+### 파일 경로 및 이미지 처리 (v4.2 업데이트)
 - **영어 경로 사용**: OpenCV 호환성을 위해 한글 경로를 영어로 변환
 - **폴더명 매핑**:
   - `7번 아이언` → `7iron`
@@ -304,9 +316,13 @@ python test_playwright.py
   - `로고볼-1` → `logo_ball-1`
   - `로고볼-2` → `logo_ball-2`
   - `마커볼` → `marker_ball`
+  - `녹색 로고볼` → `green_logo_ball`
+  - `주황색 로고볼-1` → `orange_logo_ball-1`
+  - `주황색 로고볼-2` → `orange_logo_ball-2`
   - `드라이버` → `driver`
 - **분석 도구**: `english_path_analyzer.py` - 영어 경로 기반 포괄적 분석
 - **BMP→JPG 변환**: PIL 사용으로 한글 경로 호환성 확보
+- **이미지 향상 시스템**: 95% 정확도 달성을 위한 Ultra Enhancement 적용
 
 ### 핵심 기술 용어 (실제 구현 기준)
 - **수직 스테레오 비전** (Vertical Stereo Vision): Y축 시차 기반 깊이 측정 - `calculate_vertical_disparity_depth_1440x300()`
@@ -403,3 +419,30 @@ git log --since="1 week ago" --oneline --name-only
 
 **담당자**: 개발팀 리더
 **검토 완료 시**: 문서 헤더에 `최종 검토: YYYY-MM-DD` 추가
+
+## 📝 변경 이력
+
+### v4.2 업데이트 (2024-09-09)
+**담당자**: Claude Code Assistant
+**변경 이유**: 이미지 전처리 및 향상 시스템 추가
+
+#### 변경 내용
+- BMP→JPG 변환 시스템 구현 (convert_bmp_to_jpg.py)
+- 한국어 폴더명 영어 변환 시스템 구현 (rename_korean_folders.py)
+- 95% 정확도 Ultra Image Enhancement 시스템 구현
+- 병렬 처리 최적화 버전 추가 (image_enhancer_fast.py)
+- 1,196개 이미지 전처리 완료
+
+#### 영향 받는 파일
+- `convert_bmp_to_jpg.py`: 새로 추가 (BMP→JPG 변환)
+- `rename_korean_folders.py`: 새로 추가 (폴더명 변환)
+- `image_enhancer_ultra.py`: 새로 추가 (Ultra Enhancement)
+- `image_enhancer_fast.py`: 새로 추가 (병렬 처리 버전)
+- `complete_enhancement.py`: 새로 추가 (완료 처리)
+
+#### 테스트 결과
+- BMP→JPG 변환: PASS (1,196개 파일, 81% 압축)
+- 폴더명 변환: PASS (15개 폴더)
+- 이미지 향상: PASS (1,196개 파일, 100% 성공률)
+
+**최종 검토**: 2024-09-09

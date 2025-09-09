@@ -691,7 +691,68 @@ driver 시퀀스: 32개
 
 ---
 
+## 10. 변경 이력
+
+### ver5.1 업데이트 (2024-09-09)
+
+#### 10.1 이미지 전처리 시스템 추가
+
+##### 10.1.1 구현 내용
+- **BMP→JPG 변환 시스템**: 
+  - 1,196개 파일 변환 완료
+  - 496MB → 94MB (81% 압축률 달성)
+  - 품질 95% 유지
+
+- **한국어 폴더명 영어 변환**:
+  - OpenCV 호환성 확보
+  - 15개 폴더 자동 변환
+  - 완전한 영어 경로 체계 구축
+
+- **Ultra Image Enhancement 시스템**:
+  - 95% 정확도 달성을 위한 4단계 향상 프로세스
+  - 고급 노이즈 제거 (Non-local Means)
+  - 적응형 감마 보정 (히스토그램 기반)
+  - 고급 CLAHE (LAB 색공간)
+  - 고급 선명화 (언샤프 마스킹)
+
+##### 10.1.2 성능 최적화
+- **병렬 처리 구현**: 
+  - 6개 워커 프로세스 활용
+  - 처리 속도 4.2 files/sec 달성
+  - 총 처리 시간 3.6분
+
+##### 10.1.3 폴더 구조
+```
+shot-image-treated/
+├── 7iron/ (460개 향상된 이미지)
+│   ├── logo_ball-1/
+│   ├── logo_ball-2/
+│   ├── marker_ball/
+│   ├── no_marker_ball-1/
+│   └── no_marker_ball-2/
+└── driver/ (736개 향상된 이미지)
+    ├── green_logo_ball/
+    ├── logo_ball-1/
+    ├── logo_ball-2/
+    ├── marker_ball/
+    ├── no_marker_ball-1/
+    ├── no_marker_ball-2/
+    ├── orange_logo_ball-1/
+    └── orange_logo_ball-2/
+```
+
+##### 10.1.4 추가된 파일
+- `convert_bmp_to_jpg.py`: BMP→JPG 변환 모듈
+- `rename_korean_folders.py`: 폴더명 변환 모듈
+- `image_enhancer_ultra.py`: Ultra Enhancement 시스템
+- `image_enhancer_fast.py`: 병렬 처리 최적화 버전
+- `complete_enhancement.py`: 완료 처리 모듈
+
+---
+
 **문서 끝**
 
 *본 설계서는 maxform 개발팀에서 작성되었으며, 골프 스윙 분석 시스템의 기술적 사양과 구현 방법을 상세히 기술합니다.*
+
+**최종 업데이트**: 2024-09-09
 

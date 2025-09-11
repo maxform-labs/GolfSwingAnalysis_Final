@@ -1,0 +1,124 @@
+{
+  "app_name": "GolfSwingAnalysis_1440x300_GTX3050",
+  "app_version": "4.4.0",
+  "hardware_specification": {
+    "cpu": "Intel i7 12th Gen or higher",
+    "memory": "32GB",
+    "storage": "SSD 512GB",
+    "gpu": "NVIDIA GTX 3050 or higher",
+    "os": "Windows 11 or higher"
+  },
+  "display_optimization": {
+    "screen_size": "kiosk_display",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "scaling": 100,
+    "window_size": [
+      1920,
+      1080
+    ],
+    "font_size": 14,
+    "ui_scale": 1.0
+  },
+  "camera_settings": {
+    "description": "발주사 제공 사양 - gotkde해상도 1440x300",
+    "top_camera_index": 0,
+    "bottom_camera_index": 1,
+    "resolution": [
+      1440,
+      300
+    ],
+    "fps": 820,
+    "exposure": -2,
+    "brightness": 45,
+    "vertical_stereo_config": {
+      "vertical_baseline": 500.0,
+      "camera1_height": 400.0,
+      "camera2_height": 900.0,
+      "camera1_angle": 0.0,
+      "camera2_angle": 12.0,
+      "tee_distance": 500.0,
+      "calibration_area": {
+        "x_range": [-200, 200],
+        "y_range": [-200, 200]
+      }
+    }
+  },
+  "stereo_settings": {
+    "vertical_baseline": 500.0,
+    "camera1_height": 400.0,
+    "camera2_height": 900.0,
+    "camera1_angle": 0.0,
+    "camera2_angle": 12.0,
+    "tee_distance": 500.0,
+    "roi_size_1440x300": [
+      600,
+      200
+    ],
+    "original_roi_size": [
+      800,
+      600
+    ],
+    "resolution_optimization": {
+      "horizontal_precision": 0.75,
+      "vertical_precision": 0.278,
+      "aspect_ratio": 4.8
+    }
+  },
+  "performance_settings": {
+    "description": "GTX 3050 최적화 설정",
+    "max_cpu_usage": 70,
+    "memory_limit_mb": 6144,
+    "processing_threads": 4,
+    "gpu_acceleration": true,
+    "gpu_memory_limit_gb": 6.0,
+    "target_frame_time_ms": 1.22,
+    "spin_analysis_enabled": true,
+    "stereo_optimization": {
+      "numDisparities": 48,
+      "blockSize": 11,
+      "preFilterCap": 31,
+      "uniquenessRatio": 15
+    }
+  },
+  "algorithm_settings": {
+    "stereo_vision": {
+      "algorithm": "vertical_stereo_1440x300_optimized",
+      "depth_calculation": "Y_axis_disparity_optimized",
+      "min_disparity_threshold": 0.2,
+      "max_depth_range_mm": 20000
+    },
+    "kalman_filter": {
+      "algorithm": "820fps_optimized",
+      "state_dimension": 6,
+      "measurement_dimension": 3,
+      "process_noise": 0.005,
+      "measurement_noise": 0.02
+    }
+  },
+  "ui_settings": {
+    "fullscreen": true,
+    "always_on_top": true,
+    "minimize_to_tray": false,
+    "auto_hide_cursor": true,
+    "kiosk_mode": true
+  },
+  "validation_settings": {
+    "accuracy_target": 0.95,
+    "ball_speed_tolerance": 3.0,
+    "launch_angle_tolerance": 2.5,
+    "spin_rate_tolerance": 8.0,
+    "club_speed_tolerance": 3.5
+  },
+  "unified_system_settings": {
+    "unified_analyzer_enabled": true,
+    "unified_processor_enabled": true,
+    "measurement_parameters": 13,
+    "parameter_details": {
+      "ball_parameters": ["ball_speed", "launch_angle", "launch_direction", "back_spin", "side_spin", "spin_axis"],
+      "club_parameters": ["club_speed", "attack_angle", "club_path", "face_angle", "impact_location", "club_head_acceleration", "tempo"]
+    }
+  }
+}

@@ -6,7 +6,15 @@
       "Bash(code:*)",
       "Bash(timeout:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(chmod:*)",
+      "Bash(venv/Scripts/python.exe:*)",
+      "Bash(venv/Scripts/activate.bat)",
+      "Bash(pip install:*)"
     ],
     "deny": [],
     "ask": []

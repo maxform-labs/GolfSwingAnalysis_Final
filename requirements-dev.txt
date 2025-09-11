@@ -1,0 +1,87 @@
+# Development and Testing Dependencies
+# Install after main requirements: pip install -r requirements-dev.txt
+
+# ==========================================
+# Code Quality and Formatting
+# ==========================================
+black==23.11.0                   # Code formatter
+flake8==6.1.0                    # Linting tool
+pylint==3.0.3                    # Advanced linting
+autopep8==2.0.4                  # Auto PEP8 formatting
+isort==5.13.2                    # Import sorting
+
+# ==========================================
+# Type Checking
+# ==========================================
+mypy==1.7.1                      # Static type checker
+types-requests==2.31.0           # Type stubs for requests
+types-PyYAML==6.0.12             # Type stubs for PyYAML
+
+# ==========================================
+# Testing Tools
+# ==========================================
+pytest==7.4.3                    # Testing framework
+pytest-cov==4.1.0                # Code coverage
+pytest-asyncio==0.21.1           # Async test support
+pytest-mock==3.12.0              # Mocking support
+pytest-benchmark==4.0.0          # Performance benchmarking
+pytest-xdist==3.5.0              # Parallel test execution
+hypothesis==6.92.1               # Property-based testing
+coverage==7.3.3                  # Code coverage measurement
+
+# ==========================================
+# Debugging and Profiling
+# ==========================================
+ipython==8.17.2                  # Enhanced Python shell
+ipdb==0.13.13                    # IPython debugger
+line-profiler==4.1.1             # Line-by-line profiling
+memory-profiler==0.61.0          # Memory usage profiling
+py-spy==0.3.14                   # Sampling profiler
+snakeviz==2.2.0                  # Profile visualization
+
+# ==========================================
+# Documentation
+# ==========================================
+sphinx==7.2.6                    # Documentation generator
+sphinx-rtd-theme==2.0.0          # Read the Docs theme
+sphinx-autodoc-typehints==1.25.2 # Type hints in docs
+mkdocs==1.5.3                    # Alternative docs generator
+mkdocs-material==9.5.2           # Material theme for MkDocs
+
+# ==========================================
+# Development Utilities
+# ==========================================
+jupyter==1.0.0                   # Jupyter notebook
+notebook==7.0.6                  # Jupyter notebook server
+jupyterlab==4.0.9                # JupyterLab interface
+nbconvert==7.13.0                # Notebook conversion
+pre-commit==3.6.0                # Git pre-commit hooks
+python-dotenv==1.0.0             # Environment variables
+watchdog==3.0.0                  # File system monitoring
+
+# ==========================================
+# Build and Deployment
+# ==========================================
+setuptools==69.0.3               # Package building
+wheel==0.42.0                    # Wheel packaging
+twine==4.0.2                     # PyPI upload tool
+pyinstaller==6.2.0               # Create executables
+cx-Freeze==6.15.11               # Alternative freezing tool
+
+# ==========================================
+# Version Control
+# ==========================================
+gitpython==3.1.40                # Git integration
+pre-commit==3.6.0                # Git hooks framework
+
+# ==========================================
+# Performance Testing
+# ==========================================
+locust==2.20.0                   # Load testing
+pytest-benchmark==4.0.0          # Benchmark tests
+
+# ==========================================
+# Security Testing
+# ==========================================
+bandit==1.7.5                    # Security linter
+safety==3.0.1                    # Dependency security check

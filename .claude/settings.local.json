@@ -14,7 +14,11 @@
       "Bash(chmod:*)",
       "Bash(venv/Scripts/python.exe:*)",
       "Bash(venv/Scripts/activate.bat)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(dir:*)",
+      "Bash(winget install:*)",
+      "Bash(start \"\" \"C:\\Program Files\\IrfanView\\i_view64.exe\" \"C:\\src\\GolfSwingAnalysis_Final_ver8\\data\\images\\shot-image-improved-v7-final\\driver\\no_marker_ball-1\\1_1_final.png\")",
+      "Bash(ftype PNGImage=\"C:\\Program Files\\IrfanView\\i_view64.exe\" \"%1\")"
     ],
     "deny": [],
     "ask": []

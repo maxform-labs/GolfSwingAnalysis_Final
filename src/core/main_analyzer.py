@@ -23,7 +23,7 @@ from concurrent.futures import ThreadPoolExecutor
 from .stereo_engine import VerticalStereoVision, VerticalStereoConfig, KalmanTracker3D_820fps
 from .tracking_engine import ShotDetector, BallTracker, ClubTracker, BallData, ClubData
 from .sync_controller import IRLightController
-from ..algorithms.spin_analysis.spin_820fps import BallSpinDetector820fps, SpinAnalysisManager, SpinData
+from ..algorithms.spin_analysis.spin_detector import BallSpinDetector820fps, SpinAnalysisManager, SpinData
 from ..algorithms.spin_analysis.advanced_spin import IntegratedSpinAnalyzer820fps, Ball820fpsFrame, SpinMeasurement
 from ..config.system_config import SystemConfig as BaseSystemConfig
 
@@ -249,7 +249,7 @@ class RealTimeProcessor:
             # 820fps 스핀 분석 수행
             spin_measurement = None
             if self.spin_analyzer and detections['ball']['upper'] is not None:
-                spin_measurement = self.analyze_ball_spin_820fps(detections, ball_3d)
+                spin_measurement = self.analyze_ball_spin_detector(detections, ball_3d)
             
             result = {
                 'ball_3d': ball_3d,
@@ -398,7 +398,7 @@ class GolfSwingAnalyzer:
         
         print("골프 스윙 분석 중지")
     
-    def analyze_ball_spin_820fps(self, detections: Dict, ball_3d: Optional[Dict]) -> Optional[SpinMeasurement]:
+    def analyze_ball_spin_detector(self, detections: Dict, ball_3d: Optional[Dict]) -> Optional[SpinMeasurement]:
         """
         820fps 볼 이미지 기반 정밀 스핀 분석
         

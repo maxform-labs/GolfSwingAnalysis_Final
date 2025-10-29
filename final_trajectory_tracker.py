@@ -122,7 +122,7 @@ class FinalTrajectoryTracker:
             disparity_y = abs(y1 - y2)
             
             # 실제 스테레오 파라미터
-            baseline = self.calibration_data.get('baseline', 289.35)  # mm
+            baseline = self.calibration_data.get('baseline', 470.0)  # mm
             focal_length = self.calibration_data.get('upper_camera', {}).get('camera_matrix', [[0,0,0],[0,0,0],[0,0,1]])[1][1]  # fy
             
             # 3D 좌표 계산

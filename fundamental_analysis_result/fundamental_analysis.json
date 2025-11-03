@@ -1,0 +1,390 @@
+[
+  {
+    "shot_number": 1,
+    "success": false,
+    "detected_frames": 0,
+    "total_frames": 21,
+    "detection_rate": 0.0,
+    "method": "fundamental_size_based"
+  },
+  {
+    "shot_number": 2,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 13,
+    "detection_rate": 0.23076923076923078,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        40268.13481089001,
+        -12763.547051299336,
+        -739578.3369851841
+      ],
+      "speed_mm_s": 740783.7385851888,
+      "speed_m_s": 740.7837385851888,
+      "launch_angle": 0.9872430066127343,
+      "direction_angle": -86.88346968025662,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 3,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        28959.98261772132,
+        -18052.951336842678,
+        -1404207.2741046618
+      ],
+      "speed_mm_s": 1404621.8915756773,
+      "speed_m_s": 1404.6218915756774,
+      "launch_angle": 0.7364162589720248,
+      "direction_angle": -88.81851517428608,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 4,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        30143.417705996646,
+        -22275.640561242573,
+        -1858503.230635122
+      ],
+      "speed_mm_s": 1858881.1387699314,
+      "speed_m_s": 1858.8811387699313,
+      "launch_angle": 0.6866123453367156,
+      "direction_angle": -89.07079031876987,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 5,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        27876.220284401523,
+        -28054.99167558131,
+        -1606322.681143154
+      ],
+      "speed_mm_s": 1606809.485337385,
+      "speed_m_s": 1606.809485337385,
+      "launch_angle": 1.000438642622208,
+      "direction_angle": -89.00578540014412,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 6,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        27869.94884328026,
+        -8441.15868804633,
+        -1083046.6120871562
+      ],
+      "speed_mm_s": 1083438.0236829382,
+      "speed_m_s": 1083.4380236829381,
+      "launch_angle": 0.4464008549835145,
+      "direction_angle": -88.5259377560986,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 7,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        41320.353093655904,
+        -18594.97636687696,
+        -974613.7498250734
+      ],
+      "speed_mm_s": 975666.4932618933,
+      "speed_m_s": 975.6664932618933,
+      "launch_angle": 1.0920516213727298,
+      "direction_angle": -87.57230505758926,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 8,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        11279.030743908865,
+        -23093.002836686064,
+        -1852262.8171836997
+      ],
+      "speed_mm_s": 1852441.1049304195,
+      "speed_m_s": 1852.4411049304194,
+      "launch_angle": 0.7142822886326817,
+      "direction_angle": -89.65111167524651,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 9,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        36048.9571073501,
+        -10395.818458930418,
+        -825042.1610972456
+      ],
+      "speed_mm_s": 825894.7680776117,
+      "speed_m_s": 825.8947680776117,
+      "launch_angle": 0.7212205178108394,
+      "direction_angle": -87.49813973149462,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 10,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        26007.43398115056,
+        -11442.974138397052,
+        -955371.8354923767
+      ],
+      "speed_mm_s": 955794.26255418,
+      "speed_m_s": 955.79426255418,
+      "launch_angle": 0.6859737627019455,
+      "direction_angle": -88.44066129484817,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 11,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        27465.257928610892,
+        -25909.345501319327,
+        -1691136.8756963299
+      ],
+      "speed_mm_s": 1691558.3250119803,
+      "speed_m_s": 1691.5583250119803,
+      "launch_angle": 0.877625191285949,
+      "direction_angle": -89.06955785067565,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 12,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        284068.2137034345,
+        -64670.08051438582,
+        -1443781.5192066722
+      ],
+      "speed_mm_s": 1472882.2235851458,
+      "speed_m_s": 1472.8822235851458,
+      "launch_angle": 2.516504166572598,
+      "direction_angle": -78.86906777321121,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 13,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        31714.268352791274,
+        -18861.325001694633,
+        -1337996.4043552584
+      ],
+      "speed_mm_s": 1338505.1073737345,
+      "speed_m_s": 1338.5051073737345,
+      "launch_angle": 0.8074007936275801,
+      "direction_angle": -88.6421835359898,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 14,
+    "success": true,
+    "detected_frames": 4,
+    "total_frames": 23,
+    "detection_rate": 0.17391304347826086,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        194901.01147242312,
+        -44303.55065572134,
+        -1258422.3759505376
+      ],
+      "speed_mm_s": 1274196.2506484918,
+      "speed_m_s": 1274.1962506484917,
+      "launch_angle": 1.9925644972732957,
+      "direction_angle": -81.19613454678225,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 15,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        38854.14128047964,
+        -9932.728299178132,
+        -560144.7864242828
+      ],
+      "speed_mm_s": 561578.5654246556,
+      "speed_m_s": 561.5785654246556,
+      "launch_angle": 1.0134522975749467,
+      "direction_angle": -86.0320647950585,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 16,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        37383.38428134835,
+        -28628.249128297088,
+        -1759450.7781495946
+      ],
+      "speed_mm_s": 1760080.7182625725,
+      "speed_m_s": 1760.0807182625726,
+      "launch_angle": 0.9319744071094447,
+      "direction_angle": -88.782808851329,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 17,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        30526.174929079483,
+        -22156.22092951664,
+        -2463003.2447600104
+      ],
+      "speed_mm_s": 2463292.051134014,
+      "speed_m_s": 2463.292051134014,
+      "launch_angle": 0.5153571076638497,
+      "direction_angle": -89.28991914836149,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 18,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        47244.66933785081,
+        -21616.58298704734,
+        -1054442.2073662959
+      ],
+      "speed_mm_s": 1055721.414065465,
+      "speed_m_s": 1055.721414065465,
+      "launch_angle": 1.173250363080341,
+      "direction_angle": -87.43455742018764,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 19,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        549869.1692363758,
+        -34897.65598361973,
+        1290996.9419263836
+      ],
+      "speed_mm_s": 1403654.8912510965,
+      "speed_m_s": 1403.6548912510966,
+      "launch_angle": 1.4246339747596088,
+      "direction_angle": 66.92958394177123,
+      "method": "fundamental_size_based"
+    }
+  },
+  {
+    "shot_number": 20,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "fundamental_size_based",
+    "physics": {
+      "velocity": [
+        21260.5676975852,
+        -34423.96740757542,
+        -2427620.3275124403
+      ],
+      "speed_mm_s": 2427957.469936924,
+      "speed_m_s": 2427.957469936924,
+      "launch_angle": 0.8123758991866634,
+      "direction_angle": -89.49822892671183,
+      "method": "fundamental_size_based"
+    }
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "best_transform": "X-Z swap + X-inv",
+  "matrix": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      -1,
+      0,
+      0
+    ]
+  ],
+  "direction_error_mean": 83.7625652282419,
+  "direction_error_std": 35.374841333643786,
+  "improvement_percent": 11.409238256751033
+}

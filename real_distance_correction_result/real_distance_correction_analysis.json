@@ -1,0 +1,1036 @@
+[
+  {
+    "shot_number": 1,
+    "success": false,
+    "detected_frames": 0,
+    "total_frames": 21,
+    "detection_rate": 0.0,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    }
+  },
+  {
+    "shot_number": 2,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 13,
+    "detection_rate": 0.23076923076923078,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -1100.2613698904245,
+        -3939.4216240556357,
+        -393074.4483914544
+      ],
+      "speed_mm_s": 393095.7282851854,
+      "speed_m_s": 393.09572828518543,
+      "launch_angle": 0.5742011291368236,
+      "direction_angle": -90.160377171483,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 3,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        791.7841630767786,
+        -3441.3342807656436,
+        -291142.4257227872
+      ],
+      "speed_mm_s": 291163.8400618139,
+      "speed_m_s": 291.16384006181386,
+      "launch_angle": 0.677208135148263,
+      "direction_angle": -89.8441801160585,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 4,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        267.6801975613668,
+        -2783.8740546380614,
+        -321216.23707362235
+      ],
+      "speed_mm_s": 321228.4118305506,
+      "speed_m_s": 321.22841183055056,
+      "launch_angle": 0.4965508181253591,
+      "direction_angle": -89.95225352812486,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 5,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        1992.3780433774045,
+        -4165.552642415207,
+        -303738.2135094421
+      ],
+      "speed_mm_s": 303773.30979694694,
+      "speed_m_s": 303.77330979694693,
+      "launch_angle": 0.7857045319201522,
+      "direction_angle": -89.62417236032633,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 6,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -371.57622548114176,
+        -2032.9917624025702,
+        -243446.49255661038
+      ],
+      "speed_mm_s": 243455.264602171,
+      "speed_m_s": 243.45526460217098,
+      "launch_angle": 0.4784583391852666,
+      "direction_angle": -90.08745138503099,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 7,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        1016.2880470846162,
+        -2695.2759585701506,
+        -233501.63007414673
+      ],
+      "speed_mm_s": 233519.39662728482,
+      "speed_m_s": 233.5193966272848,
+      "launch_angle": 0.6613213644350692,
+      "direction_angle": -89.75062851522046,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 8,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -1106.6416978776522,
+        -5520.086255816592,
+        -478961.5253660197
+      ],
+      "speed_mm_s": 478994.61248438223,
+      "speed_m_s": 478.99461248438223,
+      "launch_angle": 0.6603094021980174,
+      "direction_angle": -90.1323817938077,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 9,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -834.6898395721909,
+        -3508.7887700534748,
+        -428937.83422459883
+      ],
+      "speed_mm_s": 428952.9973494189,
+      "speed_m_s": 428.95299734941887,
+      "launch_angle": 0.4686784588870198,
+      "direction_angle": -90.11149434913135,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 10,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -426.92086613924033,
+        -4550.8884081233855,
+        -475334.57260863215
+      ],
+      "speed_mm_s": 475356.5490910587,
+      "speed_m_s": 475.35654909105875,
+      "launch_angle": 0.5485370561975587,
+      "direction_angle": -90.05146008442928,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 11,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        503.9307766264241,
+        -4194.482640743509,
+        -311251.36203397077
+      ],
+      "speed_mm_s": 311280.03148106544,
+      "speed_m_s": 311.28003148106546,
+      "launch_angle": 0.7720810899651892,
+      "direction_angle": -89.90723548565282,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 12,
+    "success": false,
+    "detected_frames": 0,
+    "total_frames": 23,
+    "detection_rate": 0.0,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    }
+  },
+  {
+    "shot_number": 13,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        1121.847988077507,
+        -3035.58867362146,
+        -272213.1147540983
+      ],
+      "speed_mm_s": 272232.3514676969,
+      "speed_m_s": 272.2323514676969,
+      "launch_angle": 0.638902844934257,
+      "direction_angle": -89.76387327579307,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 14,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        63031.05645745113,
+        -9806.894889772602,
+        72235.98480716403
+      ],
+      "speed_mm_s": 96369.73989060192,
+      "speed_m_s": 96.36973989060192,
+      "launch_angle": 5.840713492885942,
+      "direction_angle": 48.89297860811496,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 15,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -1703.5182319478663,
+        -2769.477125607549,
+        -304289.6841829951
+      ],
+      "speed_mm_s": 304307.05525521876,
+      "speed_m_s": 304.30705525521876,
+      "launch_angle": 0.5214520616057727,
+      "direction_angle": -90.32075811445108,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 16,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -328.93314366997686,
+        -4566.19009440062,
+        -318467.08909866796
+      ],
+      "speed_mm_s": 318499.99235160137,
+      "speed_m_s": 318.49999235160135,
+      "launch_angle": 0.8214517744820938,
+      "direction_angle": -90.05917871835909,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 17,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -1521.021906270525,
+        -2968.337905188733,
+        -386956.01359966
+      ],
+      "speed_mm_s": 386970.38775402313,
+      "speed_m_s": 386.97038775402314,
+      "launch_angle": 0.43950366076647507,
+      "direction_angle": -90.22521341931585,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 18,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        2346.9862487284695,
+        -3502.1843800625406,
+        -246982.40590739553
+      ],
+      "speed_mm_s": 247018.38487790572,
+      "speed_m_s": 247.0183848779057,
+      "launch_angle": 0.8123569719178473,
+      "direction_angle": -89.45555490594145,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 19,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        -3234.125874125865,
+        -4042.657342657342,
+        -606398.6013986013
+      ],
+      "speed_mm_s": 606420.7008560472,
+      "speed_m_s": 606.4207008560472,
+      "launch_angle": 0.3819607725976163,
+      "direction_angle": -90.30557459345856,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  },
+  {
+    "shot_number": 20,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "real_distance_correction",
+    "correction_factors": {
+      "global_factor": 0.13636363636363635,
+      "cam1_factor": 0.17272727272727273,
+      "cam2_factor": 0.1,
+      "distance_ranges": {
+        "close": [
+          0,
+          1000,
+          0.10909090909090909
+        ],
+        "medium": [
+          1000,
+          2000,
+          0.13636363636363635
+        ],
+        "far": [
+          2000,
+          10000,
+          0.1636363636363636
+        ]
+      }
+    },
+    "real_distances": {
+      "cam1_range": [
+        900,
+        1000
+      ],
+      "cam2_range": [
+        500,
+        600
+      ]
+    },
+    "physics": {
+      "velocity": [
+        120.12467532466928,
+        -3123.241558441557,
+        -360374.025974026
+      ],
+      "speed_mm_s": 360387.5797866763,
+      "speed_m_s": 360.38757978667627,
+      "launch_angle": 0.49655096294539186,
+      "direction_angle": -89.98090140753634,
+      "method": "real_distance_correction",
+      "correction_factor": 0.13636363636363635
+    }
+  }
+]

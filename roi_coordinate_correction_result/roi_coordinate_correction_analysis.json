@@ -1,0 +1,658 @@
+[
+  {
+    "shot_number": 1,
+    "success": false,
+    "detected_frames": 0,
+    "total_frames": 21,
+    "detection_rate": 0.0,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    }
+  },
+  {
+    "shot_number": 2,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 13,
+    "detection_rate": 0.23076923076923078,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -6723.819482663705,
+        -24074.243258117778,
+        -2402121.629058888
+      ],
+      "speed_mm_s": 2402251.672853911,
+      "speed_m_s": 2402.251672853911,
+      "launch_angle": 0.5742011291368238,
+      "direction_angle": -90.160377171483,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 3,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        4838.680996580413,
+        -21030.376160234493,
+        -1779203.7127503664
+      ],
+      "speed_mm_s": 1779334.5781555295,
+      "speed_m_s": 1779.3345781555295,
+      "launch_angle": 0.6772081351482631,
+      "direction_angle": -89.8441801160585,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 4,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        1635.8234295416537,
+        -17012.5636672326,
+        -1962988.1154499147
+      ],
+      "speed_mm_s": 1963062.516742254,
+      "speed_m_s": 1963.0625167422538,
+      "launch_angle": 0.4965508181253591,
+      "direction_angle": -89.95225352812486,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 5,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        12175.643598417448,
+        -25456.155036981825,
+        -1856177.9714465914
+      ],
+      "speed_mm_s": 1856392.4487591211,
+      "speed_m_s": 1856.3924487591212,
+      "launch_angle": 0.785704531920152,
+      "direction_angle": -89.62417236032633,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 6,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -2270.7436001625524,
+        -12423.83854801571,
+        -1487728.5656237302
+      ],
+      "speed_mm_s": 1487782.1725688227,
+      "speed_m_s": 1487.7821725688227,
+      "launch_angle": 0.4784583391852668,
+      "direction_angle": -90.08745138503099,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 7,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        6210.649176628297,
+        -16471.130857928703,
+        -1426954.4060086745
+      ],
+      "speed_mm_s": 1427062.9793889627,
+      "speed_m_s": 1427.0629793889627,
+      "launch_angle": 0.6613213644350695,
+      "direction_angle": -89.75062851522046,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 8,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -6762.810375918939,
+        -33733.86045221252,
+        -2926987.0994590097
+      ],
+      "speed_mm_s": 2927189.2985156695,
+      "speed_m_s": 2927.1892985156696,
+      "launch_angle": 0.6603094021980175,
+      "direction_angle": -90.1323817938077,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 9,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -5100.882352941198,
+        -21442.598039215685,
+        -2621286.7647058824
+      ],
+      "speed_mm_s": 2621379.4282464497,
+      "speed_m_s": 2621.3794282464496,
+      "launch_angle": 0.4686784588870197,
+      "direction_angle": -90.11149434913135,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 10,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -2608.9608486287466,
+        -27810.98471630958,
+        -2904822.3881638637
+      ],
+      "speed_mm_s": 2904956.688889804,
+      "speed_m_s": 2904.956688889804,
+      "launch_angle": 0.5485370561975587,
+      "direction_angle": -90.05146008442928,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 11,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        3079.5769682725336,
+        -25632.94947121034,
+        -1902091.6568742658
+      ],
+      "speed_mm_s": 1902266.8590509552,
+      "speed_m_s": 1902.2668590509552,
+      "launch_angle": 0.7720810899651894,
+      "direction_angle": -89.90723548565282,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 12,
+    "success": false,
+    "detected_frames": 0,
+    "total_frames": 23,
+    "detection_rate": 0.0,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    }
+  },
+  {
+    "shot_number": 13,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        6855.737704917986,
+        -18550.819672131143,
+        -1663524.5901639345
+      ],
+      "speed_mm_s": 1663642.1478581482,
+      "speed_m_s": 1663.6421478581483,
+      "launch_angle": 0.6389028449342566,
+      "direction_angle": -89.76387327579309,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 14,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        385189.7894622014,
+        -59931.02432638813,
+        441442.12937711366
+      ],
+      "speed_mm_s": 588926.1882203452,
+      "speed_m_s": 588.9261882203452,
+      "launch_angle": 5.840713492885941,
+      "direction_angle": 48.89297860811496,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 15,
+    "success": true,
+    "detected_frames": 3,
+    "total_frames": 23,
+    "detection_rate": 0.13043478260869565,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -10410.389195236965,
+        -16924.582434268363,
+        -1859548.0700071924
+      ],
+      "speed_mm_s": 1859654.22655967,
+      "speed_m_s": 1859.65422655967,
+      "launch_angle": 0.5214520616057731,
+      "direction_angle": -90.32075811445108,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 16,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -2010.146989094285,
+        -27904.495021337138,
+        -1946187.766714082
+      ],
+      "speed_mm_s": 1946388.8421486751,
+      "speed_m_s": 1946.3888421486752,
+      "launch_angle": 0.8214517744820943,
+      "direction_angle": -90.05917871835909,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 17,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -9295.133871653288,
+        -18139.842753931152,
+        -2364731.194220145
+      ],
+      "speed_mm_s": 2364819.036274586,
+      "speed_m_s": 2364.819036274586,
+      "launch_angle": 0.4395036607664752,
+      "direction_angle": -90.22521341931585,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 18,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        14342.693742229567,
+        -21402.23787815997,
+        -1509336.9249896395
+      ],
+      "speed_mm_s": 1509556.7964760906,
+      "speed_m_s": 1509.5567964760905,
+      "launch_angle": 0.8123569719178472,
+      "direction_angle": -89.45555490594145,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 19,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        -19764.10256410255,
+        -24705.128205128207,
+        -3705769.230769231
+      ],
+      "speed_mm_s": 3705904.283009179,
+      "speed_m_s": 3705.904283009179,
+      "launch_angle": 0.38196077259761624,
+      "direction_angle": -90.30557459345856,
+      "method": "roi_coordinate_correction"
+    }
+  },
+  {
+    "shot_number": 20,
+    "success": true,
+    "detected_frames": 2,
+    "total_frames": 23,
+    "detection_rate": 0.08695652173913043,
+    "method": "roi_coordinate_correction",
+    "roi_info": {
+      "cam1": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 396
+      },
+      "cam2": {
+        "Height": 300,
+        "Width": 1440,
+        "XOffset": 0,
+        "YOffset": 372
+      }
+    },
+    "physics": {
+      "velocity": [
+        734.095238095183,
+        -19086.476190476187,
+        -2202285.7142857146
+      ],
+      "speed_mm_s": 2202368.5431407997,
+      "speed_m_s": 2202.3685431408,
+      "launch_angle": 0.4965509629453919,
+      "direction_angle": -89.98090140753634,
+      "method": "roi_coordinate_correction"
+    }
+  }
+]

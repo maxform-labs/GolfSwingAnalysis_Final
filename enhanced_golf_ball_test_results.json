@@ -1,0 +1,70 @@
+[
+  {
+    "shot_number": 1,
+    "shot_dir": "data2/driver/1",
+    "total_frames": 21,
+    "tracked_frames": 0,
+    "detections": [],
+    "physics": {
+      "success": false,
+      "error": "Not enough tracking data"
+    },
+    "real_data": {
+      "ball_speed_ms": 54.5,
+      "launch_angle_deg": 7.7,
+      "launch_direction_deg": 2.0,
+      "datetime": "2025-10-20 13:46:09"
+    }
+  },
+  {
+    "shot_number": 4,
+    "shot_dir": "data2/driver/4",
+    "total_frames": 23,
+    "tracked_frames": 0,
+    "detections": [],
+    "physics": {
+      "success": false,
+      "error": "Not enough tracking data"
+    },
+    "real_data": {
+      "ball_speed_ms": 61.1,
+      "launch_angle_deg": 6.7,
+      "launch_direction_deg": -2.1,
+      "datetime": "2025-10-20 13:48:35"
+    }
+  },
+  {
+    "shot_number": 17,
+    "shot_dir": "data2/driver/17",
+    "total_frames": 23,
+    "tracked_frames": 0,
+    "detections": [],
+    "physics": {
+      "success": false,
+      "error": "Not enough tracking data"
+    },
+    "real_data": {
+      "ball_speed_ms": 62.0,
+      "launch_angle_deg": 7.2,
+      "launch_direction_deg": 0.3,
+      "datetime": "2025-10-20 13:53:35"
+    }
+  },
+  {
+    "shot_number": 20,
+    "shot_dir": "data2/driver/20",
+    "total_frames": 23,
+    "tracked_frames": 0,
+    "detections": [],
+    "physics": {
+      "success": false,
+      "error": "Not enough tracking data"
+    },
+    "real_data": {
+      "ball_speed_ms": 59.8,
+      "launch_angle_deg": 10.1,
+      "launch_direction_deg": -3.8,
+      "datetime": "2025-10-20 13:54:36"
+    }
+  }
+]

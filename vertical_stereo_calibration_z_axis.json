@@ -1,0 +1,201 @@
+{
+  "camera_matrix_1": [
+    [
+      1500.0,
+      0.0,
+      720.0
+    ],
+    [
+      0.0,
+      1500.0,
+      540.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "distortion_coeffs_1": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "camera_matrix_2": [
+    [
+      1500.0,
+      0.0,
+      720.0
+    ],
+    [
+      0.0,
+      1500.0,
+      540.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "distortion_coeffs_2": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rotation_matrix": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "translation_vector": [
+    0.0,
+    0.0,
+    470.0
+  ],
+  "rectification_rotation_1": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.123233995736766e-17,
+      -1.0
+    ],
+    [
+      0.0,
+      1.0,
+      6.123233995736766e-17
+    ]
+  ],
+  "rectification_rotation_2": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      6.123233995736766e-17,
+      -1.0
+    ],
+    [
+      0.0,
+      1.0,
+      6.123233995736766e-17
+    ]
+  ],
+  "projection_matrix_1": [
+    [
+      1500.0,
+      0.0,
+      719.5013122558594,
+      0.0
+    ],
+    [
+      0.0,
+      1500.0,
+      543.365234375,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ]
+  ],
+  "projection_matrix_2": [
+    [
+      1500.0,
+      0.0,
+      719.5013122558594,
+      0.0
+    ],
+    [
+      0.0,
+      1500.0,
+      543.365234375,
+      -705000.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ]
+  ],
+  "disparity_to_depth_matrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -719.5013122558594
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      -543.365234375
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1500.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.002127659574468085,
+      -0.0
+    ]
+  ],
+  "roi_1": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "roi_2": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "baseline_pixels": 470.0,
+  "baseline_mm": 470.0,
+  "pixel_to_mm_ratio": 1.0,
+  "reprojection_error": 0.0,
+  "image_size": [
+    1440,
+    1080
+  ],
+  "calibration_date": "2025-10-28T14:58:13.585399",
+  "calibration_method": "vertical_stereo_z_axis",
+  "notes": "Vertical stereo calibration with Z-axis baseline (470mm)",
+  "coordinate_system": {
+    "x_axis": "Target direction (forward)",
+    "y_axis": "Side direction (right is positive)",
+    "z_axis": "Height direction (up is positive)",
+    "baseline_direction": "Z-axis (vertical)"
+  }
+}

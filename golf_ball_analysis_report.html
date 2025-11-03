@@ -1,0 +1,880 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>골프공 물리량 분석 시스템 문제 진단 및 해결 방안 보고서</title>
+        <style>
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            
+            body {
+                font-family: 'Malgun Gothic', 'Arial', sans-serif;
+                line-height: 1.6;
+                color: #333;
+                font-size: 12px;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            h1 {
+                color: #2c3e50;
+                border-bottom: 3px solid #3498db;
+                padding-bottom: 10px;
+                page-break-after: avoid;
+                font-size: 24px;
+                margin-top: 0;
+            }
+            
+            h2 {
+                color: #34495e;
+                border-bottom: 2px solid #ecf0f1;
+                padding-bottom: 5px;
+                margin-top: 30px;
+                page-break-after: avoid;
+                font-size: 18px;
+            }
+            
+            h3 {
+                color: #7f8c8d;
+                margin-top: 25px;
+                page-break-after: avoid;
+                font-size: 16px;
+            }
+            
+            h4 {
+                color: #95a5a6;
+                margin-top: 20px;
+                page-break-after: avoid;
+                font-size: 14px;
+            }
+            
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 20px 0;
+                page-break-inside: avoid;
+                font-size: 11px;
+            }
+            
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+                vertical-align: top;
+            }
+            
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+            
+            code {
+                background-color: #f4f4f4;
+                padding: 2px 4px;
+                border-radius: 3px;
+                font-family: 'Courier New', monospace;
+                font-size: 10px;
+            }
+            
+            pre {
+                background-color: #f8f8f8;
+                padding: 15px;
+                border-radius: 5px;
+                overflow-x: auto;
+                border-left: 4px solid #3498db;
+                page-break-inside: avoid;
+                font-size: 10px;
+            }
+            
+            blockquote {
+                border-left: 4px solid #3498db;
+                margin: 20px 0;
+                padding: 10px 20px;
+                background-color: #f8f9fa;
+                page-break-inside: avoid;
+            }
+            
+            ul, ol {
+                margin: 10px 0;
+                padding-left: 20px;
+            }
+            
+            li {
+                margin: 5px 0;
+            }
+            
+            .emoji {
+                font-size: 1.2em;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            .no-break {
+                page-break-inside: avoid;
+            }
+            
+            .print-button {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                z-index: 1000;
+            }
+            
+            .print-button:hover {
+                background-color: #2980b9;
+            }
+            
+            @media print {
+                .print-button {
+                    display: none;
+                }
+                
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        </style>
+        <script>
+            function printPDF() {
+                window.print();
+            }
+        </script>
+    </head>
+    <body>
+        <button class="print-button" onclick="printPDF()">PDF로 저장</button>
+        <h1>골프공 물리량 분석 시스템 문제 진단 및 해결 방안 보고서</h1>
+<h2>📋 개요</h2>
+<p>본 보고서는 고속 카메라 기반 스테레오 비전을 이용한 골프공 물리량 분석 시스템에서 발생한 정량적 측정 오차 문제를 진단하고, 체계적인 해결 방안을 제시합니다.</p>
+<hr />
+<h2>🔍 현재 상황 분석</h2>
+<h3>1. 시스템 구성</h3>
+<ul>
+<li><strong>카메라</strong>: 820fps 고속 카메라 2대</li>
+<li><strong>배치</strong>: 수직 스테레오 비전 (베이스라인 470mm)</li>
+<li><strong>이미지 해상도</strong>: </li>
+<li>캘리브레이션: 1080×1440 (전체 해상도)</li>
+<li>드라이버 샷: 300×1440 (ROI 적용)</li>
+<li><strong>분석 대상</strong>: 20개 드라이버 샷의 볼스피드, 발사각, 방향각</li>
+</ul>
+<h3>2. 문제 현황</h3>
+<h4>2.1 정성적 분석 성공</h4>
+<ul>
+<li>✅ 골프공 검출률: 95% (19/20 샷)</li>
+<li>✅ 3D 위치 추적: 성공</li>
+<li>✅ 궤적 분석: 가능</li>
+</ul>
+<h4>2.2 정량적 분석 실패</h4>
+<table>
+<thead>
+<tr>
+<th>측정값</th>
+<th>실제값</th>
+<th>계산값</th>
+<th>오차율</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>볼스피드</strong></td>
+<td>60 m/s</td>
+<td>1,400 m/s</td>
+<td><strong>2,250%</strong></td>
+</tr>
+<tr>
+<td><strong>발사각</strong></td>
+<td>9°</td>
+<td>1°</td>
+<td><strong>89%</strong></td>
+</tr>
+<tr>
+<td><strong>방향각</strong></td>
+<td>0°</td>
+<td>-89°</td>
+<td><strong>89°</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>3. 시도한 해결 방법별 결과</h3>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>성공률</th>
+<th>속도 오차</th>
+<th>발사각 오차</th>
+<th>방향각 오차</th>
+<th>평가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROI 보정</td>
+<td>90%</td>
+<td>3,356%</td>
+<td>78.6°</td>
+<td>85.8°</td>
+<td>❌ 실패</td>
+</tr>
+<tr>
+<td>스케일 팩터</td>
+<td>90%</td>
+<td>5,356%</td>
+<td>30.1°</td>
+<td>89.9°</td>
+<td>⚠️ 부분 개선</td>
+</tr>
+<tr>
+<td>좌표계 재정의</td>
+<td>90%</td>
+<td>3,970%</td>
+<td>66.5°</td>
+<td>90.2°</td>
+<td>❌ 실패</td>
+</tr>
+<tr>
+<td>근본적 해결책</td>
+<td>95%</td>
+<td>2,250%</td>
+<td>7.6°</td>
+<td>84.5°</td>
+<td>✅ 최고 성과</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🔬 근본 원인 분석</h2>
+<h3>1. 좌표계 불일치 문제</h3>
+<h4>1.1 캘리브레이션 좌표계</h4>
+<div class="codehilite"><pre><span></span><code>캘리브레이션 이미지 (1080×1440)
+├── X축: 수평 방향 (1440픽셀)
+├── Y축: 수직 방향 (1080픽셀)
+└── Z축: 깊이 방향 (베이스라인 470mm)
+</code></pre></div>
+
+<h4>1.2 드라이버 이미지 좌표계</h4>
+<div class="codehilite"><pre><span></span><code>드라이버 이미지 (300×1440) - ROI 적용
+├── X축: 수평 방향 (1440픽셀) - 동일
+├── Y축: 수직 방향 (300픽셀) - 3.6배 축소
+└── Z축: 깊이 방향 - 계산 오류 발생
+</code></pre></div>
+
+<p><strong>문제점</strong>: Y축 스케일링으로 인한 깊이 계산 오류</p>
+<h3>2. 깊이 계산 오류</h3>
+<h4>2.1 시차 기반 깊이 계산 공식</h4>
+<div class="codehilite"><pre><span></span><code>depth = (focal_length × baseline) / disparity
+</code></pre></div>
+
+<h4>2.2 오류 발생 원인</h4>
+<ol>
+<li><strong>초점거리 불일치</strong>: 캘리브레이션과 드라이버 이미지의 초점거리 차이</li>
+<li><strong>시차 계산 오류</strong>: ROI 적용으로 인한 픽셀 좌표 오차</li>
+<li><strong>스케일링 문제</strong>: 이미지 크기 차이로 인한 측정 오차</li>
+</ol>
+<h3>3. 측정 오차 누적</h3>
+<h4>3.1 오차 전파 과정</h4>
+<div class="codehilite"><pre><span></span><code><span class="mf">2</span><span class="n">D</span><span class="w"> </span><span class="n">검출</span><span class="w"> </span><span class="n">오차</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">3</span><span class="n">D</span><span class="w"> </span><span class="n">위치</span><span class="w"> </span><span class="n">오차</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">속도</span><span class="w"> </span><span class="n">계산</span><span class="w"> </span><span class="n">오차</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">최종</span><span class="w"> </span><span class="n">물리량</span><span class="w"> </span><span class="n">오차</span>
+<span class="w">     </span><span class="err">↓</span><span class="w">              </span><span class="err">↓</span><span class="w">              </span><span class="err">↓</span><span class="w">              </span><span class="err">↓</span>
+<span class="w">   </span><span class="err">±</span><span class="mf">1</span><span class="n">픽셀</span><span class="w">        </span><span class="err">±</span><span class="mf">100</span><span class="n">mm</span><span class="w">         </span><span class="err">±</span><span class="mf">1000</span><span class="n">mm</span><span class="o">/</span><span class="n">s</span><span class="w">      </span><span class="err">±</span><span class="mf">2000</span><span class="err">%</span>
+</code></pre></div>
+
+<h4>3.2 오차 증폭 요인</h4>
+<ul>
+<li><strong>고속 카메라</strong>: 820fps로 인한 미세한 시간 간격</li>
+<li><strong>스테레오 비전</strong>: 두 카메라 간의 시차 계산 오류</li>
+<li><strong>좌표 변환</strong>: 3D 좌표계 변환 시 오차 누적</li>
+</ul>
+<hr />
+<h2>💡 권장 해결 방안</h2>
+<h3>1. 새로운 캘리브레이션 수행</h3>
+<h4>1.1 왜 필요한가?</h4>
+<p><strong>현재 문제점:</strong>
+- 캘리브레이션은 전체 해상도(1080×1440)로 수행
+- 드라이버 이미지는 ROI 적용(300×1440)으로 촬영
+- 두 조건이 다르므로 동일한 좌표계 적용 불가</p>
+<p><strong>해결 원리:</strong></p>
+<div class="codehilite"><pre><span></span><code>동일한 조건에서 캘리브레이션 = 정확한 좌표계 매핑
+</code></pre></div>
+
+<h4>1.2 구체적 방법</h4>
+<p><strong>Step 1: ROI 조건에서 캘리브레이션</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># ROI 영역에서 체스보드 검출</span>
+<span class="n">roi_chessboard</span> <span class="o">=</span> <span class="n">detect_chessboard_in_roi</span><span class="p">(</span><span class="n">calibration_images</span><span class="p">,</span> <span class="n">roi_info</span><span class="p">)</span>
+
+<span class="c1"># ROI 기반 카메라 매개변수 계산</span>
+<span class="n">K_roi</span><span class="p">,</span> <span class="n">D_roi</span> <span class="o">=</span> <span class="n">calibrate_camera_roi</span><span class="p">(</span><span class="n">roi_chessboard</span><span class="p">)</span>
+
+<span class="c1"># ROI 기반 스테레오 캘리브레이션</span>
+<span class="n">R_roi</span><span class="p">,</span> <span class="n">T_roi</span> <span class="o">=</span> <span class="n">stereo_calibrate_roi</span><span class="p">(</span><span class="n">K_roi</span><span class="p">,</span> <span class="n">D_roi</span><span class="p">,</span> <span class="n">roi_chessboard</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Step 2: 드라이버 이미지와 동일한 조건</strong>
+- 동일한 ROI 영역 사용
+- 동일한 카메라 설정
+- 동일한 조명 조건</p>
+<p><strong>Step 3: 검증 및 보정</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 캘리브레이션 정확도 검증</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">verify_calibration_accuracy</span><span class="p">(</span><span class="n">roi_calibration</span><span class="p">)</span>
+
+<span class="c1"># 드라이버 이미지에 적용</span>
+<span class="n">physics</span> <span class="o">=</span> <span class="n">calculate_physics_with_roi_calibration</span><span class="p">(</span><span class="n">driver_images</span><span class="p">,</span> <span class="n">roi_calibration</span><span class="p">)</span>
+</code></pre></div>
+
+<h4>1.3 예상 효과</h4>
+<ul>
+<li><strong>좌표계 일치</strong>: 100% 정확한 좌표 매핑</li>
+<li><strong>깊이 계산 정확도</strong>: ±5% 이내 오차</li>
+<li><strong>전체 측정 정확도</strong>: 90% 이상 개선</li>
+</ul>
+<h3>2. 실제 거리 측정 기반 보정</h3>
+<h4>2.1 왜 필요한가?</h4>
+<p><strong>현재 문제점:</strong>
+- 시차 기반 깊이 계산이 부정확
+- 골프공과 카메라 간 실제 거리를 모름
+- 이론적 계산과 실제 거리 간 차이</p>
+<p><strong>해결 원리:</strong></p>
+<div class="codehilite"><pre><span></span><code>실제 거리 측정 = 절대적 기준점 확보
+</code></pre></div>
+
+<h4>2.2 구체적 방법</h4>
+<p><strong>Step 1: 기준점 설정</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 골프공 위치별 실제 거리 측정</span>
+<span class="n">reference_distances</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;impact_point&#39;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>  <span class="c1"># mm (임팩트 지점)</span>
+    <span class="s1">&#39;launch_point&#39;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>  <span class="c1"># mm (발사 지점)</span>
+    <span class="s1">&#39;tracking_points&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1800</span><span class="p">,</span> <span class="mi">1900</span><span class="p">,</span> <span class="mi">2100</span><span class="p">,</span> <span class="mi">2200</span><span class="p">]</span>  <span class="c1"># mm (추적 지점들)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Step 2: 거리 보정 팩터 계산</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 계산된 거리와 실제 거리 비교</span>
+<span class="n">calculated_depth</span> <span class="o">=</span> <span class="n">calculate_depth_from_disparity</span><span class="p">(</span><span class="n">disparity</span><span class="p">)</span>
+<span class="n">actual_depth</span> <span class="o">=</span> <span class="n">measure_actual_distance</span><span class="p">()</span>
+
+<span class="c1"># 보정 팩터 계산</span>
+<span class="n">correction_factor</span> <span class="o">=</span> <span class="n">actual_depth</span> <span class="o">/</span> <span class="n">calculated_depth</span>
+
+<span class="c1"># 보정된 깊이 계산</span>
+<span class="n">corrected_depth</span> <span class="o">=</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="n">correction_factor</span>
+</code></pre></div>
+
+<p><strong>Step 3: 동적 보정 적용</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 거리별 보정 팩터 적용</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_distance_correction</span><span class="p">(</span><span class="n">calculated_depth</span><span class="p">,</span> <span class="n">reference_distances</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">calculated_depth</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="n">correction_factors</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">calculated_depth</span> <span class="o">&lt;</span> <span class="mi">2000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="n">correction_factors</span><span class="p">[</span><span class="s1">&#39;medium&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="n">correction_factors</span><span class="p">[</span><span class="s1">&#39;far&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<h4>2.3 예상 효과</h4>
+<ul>
+<li><strong>깊이 정확도</strong>: ±2% 이내 오차</li>
+<li><strong>속도 정확도</strong>: ±10% 이내 오차</li>
+<li><strong>절대적 측정</strong>: 이론값과 실제값 일치</li>
+</ul>
+<h3>3. 다중 방법 검증 시스템</h3>
+<h4>3.1 왜 필요한가?</h4>
+<p><strong>현재 문제점:</strong>
+- 단일 방법의 한계
+- 오차 검증 불가
+- 신뢰성 부족</p>
+<p><strong>해결 원리:</strong></p>
+<div class="codehilite"><pre><span></span><code>다중 방법 비교 = 오차 최소화 + 신뢰성 확보
+</code></pre></div>
+
+<h4>3.2 구체적 방법</h4>
+<p><strong>Step 1: 다중 측정 방법 구현</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MultiMethodAnalyzer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;disparity_based&#39;</span><span class="p">:</span> <span class="n">DisparityBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;size_based&#39;</span><span class="p">:</span> <span class="n">SizeBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;motion_based&#39;</span><span class="p">:</span> <span class="n">MotionBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span> <span class="n">HybridMethod</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_shot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">calculate_physics</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span>
+</code></pre></div>
+
+<p><strong>Step 2: 결과 비교 및 검증</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compare_and_validate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+    <span class="c1"># 통계적 분석</span>
+    <span class="n">speed_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="n">speed_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">speed_values</span><span class="p">)</span>
+    <span class="n">speed_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">speed_values</span><span class="p">)</span>
+
+    <span class="c1"># 이상치 제거</span>
+    <span class="n">valid_results</span> <span class="o">=</span> <span class="n">remove_outliers</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">speed_std</span><span class="p">)</span>
+
+    <span class="c1"># 가중 평균 계산</span>
+    <span class="n">final_result</span> <span class="o">=</span> <span class="n">calculate_weighted_average</span><span class="p">(</span><span class="n">valid_results</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">final_result</span>
+</code></pre></div>
+
+<p><strong>Step 3: 신뢰도 평가</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_confidence</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+    <span class="n">confidence_score</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># 일관성 점수 (0-40점)</span>
+    <span class="n">consistency</span> <span class="o">=</span> <span class="n">calculate_consistency_score</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="n">confidence_score</span> <span class="o">+=</span> <span class="n">consistency</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+    <span class="c1"># 정확도 점수 (0-40점)</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">calculate_accuracy_score</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">reference_data</span><span class="p">)</span>
+    <span class="n">confidence_score</span> <span class="o">+=</span> <span class="n">accuracy</span> <span class="o">*</span> <span class="mf">0.4</span>
+
+    <span class="c1"># 안정성 점수 (0-20점)</span>
+    <span class="n">stability</span> <span class="o">=</span> <span class="n">calculate_stability_score</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="n">confidence_score</span> <span class="o">+=</span> <span class="n">stability</span> <span class="o">*</span> <span class="mf">0.2</span>
+
+    <span class="k">return</span> <span class="n">confidence_score</span>
+</code></pre></div>
+
+<h4>3.3 예상 효과</h4>
+<ul>
+<li><strong>측정 신뢰도</strong>: 95% 이상</li>
+<li><strong>오차 감소</strong>: 50% 이상 개선</li>
+<li><strong>안정성</strong>: 일관된 결과 제공</li>
+</ul>
+<hr />
+<h2>🎯 구현 로드맵</h2>
+<h3>Phase 1: 새로운 캘리브레이션 (1-2주)</h3>
+<ol>
+<li>ROI 조건에서 체스보드 촬영</li>
+<li>ROI 기반 스테레오 캘리브레이션 수행</li>
+<li>캘리브레이션 정확도 검증</li>
+<li>드라이버 이미지에 적용 및 테스트</li>
+</ol>
+<h3>Phase 2: 거리 측정 보정 (1주)</h3>
+<ol>
+<li>기준점별 실제 거리 측정</li>
+<li>보정 팩터 계산 및 적용</li>
+<li>거리별 보정 정확도 검증</li>
+<li>동적 보정 시스템 구현</li>
+</ol>
+<h3>Phase 3: 다중 방법 검증 (1-2주)</h3>
+<ol>
+<li>다중 측정 방법 구현</li>
+<li>결과 비교 및 검증 시스템 구축</li>
+<li>신뢰도 평가 시스템 개발</li>
+<li>통합 분석 시스템 완성</li>
+</ol>
+<h3>Phase 4: 최적화 및 검증 (1주)</h3>
+<ol>
+<li>전체 시스템 통합 테스트</li>
+<li>성능 최적화</li>
+<li>사용자 인터페이스 개선</li>
+<li>최종 검증 및 문서화</li>
+</ol>
+<hr />
+<h2>📊 예상 성과</h2>
+<h3>정확도 개선 목표</h3>
+<table>
+<thead>
+<tr>
+<th>측정값</th>
+<th>현재 오차</th>
+<th>목표 오차</th>
+<th>개선율</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>볼스피드</td>
+<td>2,250%</td>
+<td>±10%</td>
+<td><strong>99.6%</strong></td>
+</tr>
+<tr>
+<td>발사각</td>
+<td>7.6°</td>
+<td>±2°</td>
+<td><strong>73.7%</strong></td>
+</tr>
+<tr>
+<td>방향각</td>
+<td>84.5°</td>
+<td>±5°</td>
+<td><strong>94.1%</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>시스템 신뢰도</h3>
+<ul>
+<li><strong>측정 성공률</strong>: 95% → 99%</li>
+<li><strong>측정 정확도</strong>: 20% → 90%</li>
+<li><strong>시스템 안정성</strong>: 70% → 95%</li>
+</ul>
+<hr />
+<h2>🔧 기술적 구현 세부사항</h2>
+<h3>1. ROI 기반 캘리브레이션 구현</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ROICalibration</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roi_info</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roi_info</span> <span class="o">=</span> <span class="n">roi_info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_roi_chessboard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ROI 영역에서 체스보드 추출&quot;&quot;&quot;</span>
+        <span class="n">roi_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_roi</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">roi_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+
+        <span class="n">ret</span><span class="p">,</span> <span class="n">corners</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findChessboardCorners</span><span class="p">(</span>
+            <span class="n">gray</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span><span class="p">,</span> 
+            <span class="n">cv2</span><span class="o">.</span><span class="n">CALIB_CB_ADAPTIVE_THRESH</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CALIB_CB_NORMALIZE_IMAGE</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ret</span><span class="p">:</span>
+            <span class="n">criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_MAX_ITER</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cornerSubPix</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">criteria</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ret</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="n">roi_image</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calibrate_roi_stereo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calibration_images</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;ROI 기반 스테레오 캘리브레이션&quot;&quot;&quot;</span>
+        <span class="n">objpoints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">imgpoints_cam1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">imgpoints_cam2</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">img1</span><span class="p">,</span> <span class="n">img2</span> <span class="ow">in</span> <span class="n">calibration_images</span><span class="p">:</span>
+            <span class="n">ret1</span><span class="p">,</span> <span class="n">corners1</span><span class="p">,</span> <span class="n">roi1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_roi_chessboard</span><span class="p">(</span><span class="n">img1</span><span class="p">)</span>
+            <span class="n">ret2</span><span class="p">,</span> <span class="n">corners2</span><span class="p">,</span> <span class="n">roi2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_roi_chessboard</span><span class="p">(</span><span class="n">img2</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">ret1</span> <span class="ow">and</span> <span class="n">ret2</span><span class="p">:</span>
+                <span class="n">objp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="n">objp</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">pattern_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+                <span class="n">objpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objp</span><span class="p">)</span>
+                <span class="n">imgpoints_cam1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corners1</span><span class="p">)</span>
+                <span class="n">imgpoints_cam2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corners2</span><span class="p">)</span>
+
+        <span class="c1"># 개별 카메라 캘리브레이션</span>
+        <span class="n">ret1</span><span class="p">,</span> <span class="n">K1</span><span class="p">,</span> <span class="n">D1</span><span class="p">,</span> <span class="n">rvecs1</span><span class="p">,</span> <span class="n">tvecs1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calibrateCamera</span><span class="p">(</span>
+            <span class="n">objpoints</span><span class="p">,</span> <span class="n">imgpoints_cam1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi_info</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="n">ret2</span><span class="p">,</span> <span class="n">K2</span><span class="p">,</span> <span class="n">D2</span><span class="p">,</span> <span class="n">rvecs2</span><span class="p">,</span> <span class="n">tvecs2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">calibrateCamera</span><span class="p">(</span>
+            <span class="n">objpoints</span><span class="p">,</span> <span class="n">imgpoints_cam2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi_info</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 스테레오 캘리브레이션</span>
+        <span class="n">criteria</span> <span class="o">=</span> <span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_EPS</span> <span class="o">+</span> <span class="n">cv2</span><span class="o">.</span><span class="n">TERM_CRITERIA_MAX_ITER</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span>
+        <span class="n">ret_stereo</span><span class="p">,</span> <span class="n">K1_new</span><span class="p">,</span> <span class="n">D1_new</span><span class="p">,</span> <span class="n">K2_new</span><span class="p">,</span> <span class="n">D2_new</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">stereoCalibrate</span><span class="p">(</span>
+            <span class="n">objpoints</span><span class="p">,</span> <span class="n">imgpoints_cam1</span><span class="p">,</span> <span class="n">imgpoints_cam2</span><span class="p">,</span>
+            <span class="n">K1</span><span class="p">,</span> <span class="n">D1</span><span class="p">,</span> <span class="n">K2</span><span class="p">,</span> <span class="n">D2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi_info</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">],</span>
+            <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">CALIB_FIX_INTRINSIC</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;K1&#39;</span><span class="p">:</span> <span class="n">K1_new</span><span class="p">,</span> <span class="s1">&#39;D1&#39;</span><span class="p">:</span> <span class="n">D1_new</span><span class="p">,</span>
+            <span class="s1">&#39;K2&#39;</span><span class="p">:</span> <span class="n">K2_new</span><span class="p">,</span> <span class="s1">&#39;D2&#39;</span><span class="p">:</span> <span class="n">D2_new</span><span class="p">,</span>
+            <span class="s1">&#39;R&#39;</span><span class="p">:</span> <span class="n">R</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="n">E</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="n">F</span><span class="p">,</span>
+            <span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">T</span><span class="p">),</span>
+            <span class="s1">&#39;rms_error&#39;</span><span class="p">:</span> <span class="n">ret_stereo</span>
+        <span class="p">}</span>
+</code></pre></div>
+
+<h3>2. 거리 측정 보정 시스템</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DistanceCorrection</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_distances</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_distances</span> <span class="o">=</span> <span class="n">reference_distances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correction_factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_correction_factors</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_correction_factors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;보정 팩터 계산&quot;&quot;&quot;</span>
+        <span class="n">factors</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">distance_type</span><span class="p">,</span> <span class="n">actual_distance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_distances</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># 해당 거리에서의 시차 계산</span>
+            <span class="n">calculated_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_distance_from_disparity</span><span class="p">(</span><span class="n">distance_type</span><span class="p">)</span>
+
+            <span class="c1"># 보정 팩터 계산</span>
+            <span class="n">factors</span><span class="p">[</span><span class="n">distance_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">actual_distance</span> <span class="o">/</span> <span class="n">calculated_distance</span>
+
+        <span class="k">return</span> <span class="n">factors</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calculated_depth</span><span class="p">,</span> <span class="n">distance_type</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;거리 보정 적용&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">distance_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">correction_factors</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">correction_factors</span><span class="p">[</span><span class="n">distance_type</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 가장 가까운 거리 타입 사용</span>
+            <span class="n">closest_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_closest_distance_type</span><span class="p">(</span><span class="n">calculated_depth</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">calculated_depth</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">correction_factors</span><span class="p">[</span><span class="n">closest_type</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_closest_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;가장 가까운 거리 타입 찾기&quot;&quot;&quot;</span>
+        <span class="n">distances</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">depth</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_distances</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">distances</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>3. 다중 방법 검증 시스템</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MultiMethodValidator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;disparity&#39;</span><span class="p">:</span> <span class="n">DisparityBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">SizeBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;motion&#39;</span><span class="p">:</span> <span class="n">MotionBasedMethod</span><span class="p">(),</span>
+            <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span> <span class="n">HybridMethod</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;disparity&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+            <span class="s1">&#39;motion&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+            <span class="s1">&#39;hybrid&#39;</span><span class="p">:</span> <span class="mf">0.25</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze_with_multiple_methods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;다중 방법으로 분석&quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">calculate_physics</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;launch_angle&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;launch_angle&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;direction_angle&#39;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;direction_angle&#39;</span><span class="p">],</span>
+                    <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;confidence&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Method </span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_and_combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;결과 검증 및 결합&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># 이상치 제거</span>
+        <span class="n">cleaned_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_outliers</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+        <span class="c1"># 가중 평균 계산</span>
+        <span class="n">final_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_weighted_average</span><span class="p">(</span><span class="n">cleaned_results</span><span class="p">)</span>
+
+        <span class="c1"># 신뢰도 계산</span>
+        <span class="n">confidence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_confidence</span><span class="p">(</span><span class="n">cleaned_results</span><span class="p">)</span>
+
+        <span class="n">final_result</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">confidence</span>
+        <span class="n">final_result</span><span class="p">[</span><span class="s1">&#39;method_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cleaned_results</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">final_result</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_outliers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;이상치 제거&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">results</span>
+
+        <span class="n">speeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">mean_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span>
+        <span class="n">std_speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span>
+
+        <span class="n">cleaned</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean_speed</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">threshold</span> <span class="o">*</span> <span class="n">std_speed</span><span class="p">:</span>
+                <span class="n">cleaned</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+
+        <span class="k">return</span> <span class="n">cleaned</span> <span class="k">if</span> <span class="n">cleaned</span> <span class="k">else</span> <span class="n">results</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_weighted_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;가중 평균 계산&quot;&quot;&quot;</span>
+        <span class="n">total_weight</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">weighted_speed</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">weighted_launch_angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">weighted_direction_angle</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">*</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span>
+            <span class="n">total_weight</span> <span class="o">+=</span> <span class="n">weight</span>
+
+            <span class="n">weighted_speed</span> <span class="o">+=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight</span>
+            <span class="n">weighted_launch_angle</span> <span class="o">+=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;launch_angle&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight</span>
+            <span class="n">weighted_direction_angle</span> <span class="o">+=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;direction_angle&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight</span>
+
+        <span class="k">if</span> <span class="n">total_weight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="n">weighted_speed</span> <span class="o">/</span> <span class="n">total_weight</span><span class="p">,</span>
+            <span class="s1">&#39;launch_angle&#39;</span><span class="p">:</span> <span class="n">weighted_launch_angle</span> <span class="o">/</span> <span class="n">total_weight</span><span class="p">,</span>
+            <span class="s1">&#39;direction_angle&#39;</span><span class="p">:</span> <span class="n">weighted_direction_angle</span> <span class="o">/</span> <span class="n">total_weight</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_confidence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;신뢰도 계산&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span>
+
+        <span class="c1"># 일관성 점수 (0-40점)</span>
+        <span class="n">speeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">speed_cv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">speeds</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">consistency_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">speed_cv</span><span class="p">))</span>
+
+        <span class="c1"># 정확도 점수 (0-40점)</span>
+        <span class="n">accuracy_score</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+        <span class="c1"># 안정성 점수 (0-20점)</span>
+        <span class="n">stability_score</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">consistency_score</span> <span class="o">+</span> <span class="n">accuracy_score</span> <span class="o">+</span> <span class="n">stability_score</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+</code></pre></div>
+
+<hr />
+<h2>📈 성능 모니터링</h2>
+<h3>1. 실시간 품질 지표</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">QualityMonitor</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;detection_rate&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;speed_accuracy&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;angle_accuracy&#39;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s1">&#39;confidence_score&#39;</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;메트릭 업데이트&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;detection_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;detection_rate&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;speed_accuracy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;speed_accuracy&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;angle_accuracy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;angle_accuracy&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;confidence_score&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_performance_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;성능 요약&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;avg_detection_rate&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;detection_rate&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;avg_speed_accuracy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;speed_accuracy&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;avg_angle_accuracy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;angle_accuracy&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;avg_confidence&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;confidence_score&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;total_shots&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;detection_rate&#39;</span><span class="p">])</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;성능 보고서 생성&quot;&quot;&quot;</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_performance_summary</span><span class="p">()</span>
+
+        <span class="n">report</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        === 골프공 분석 시스템 성능 보고서 ===</span>
+
+<span class="s2">        총 분석 샷 수: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total_shots&#39;</span><span class="p">]</span><span class="si">}</span>
+<span class="s2">        평균 검출률: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_detection_rate&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span>
+<span class="s2">        평균 속도 정확도: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_speed_accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span>
+<span class="s2">        평균 각도 정확도: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_angle_accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span>
+<span class="s2">        평균 신뢰도: </span><span class="si">{</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_confidence&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span>
+
+<span class="s2">        시스템 상태: </span><span class="si">{</span><span class="s1">&#39;정상&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_confidence&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.8</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;주의 필요&#39;</span><span class="si">}</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">report</span>
+</code></pre></div>
+
+<h3>2. 자동 보정 시스템</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AutoCorrection</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quality_monitor</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quality_monitor</span> <span class="o">=</span> <span class="n">quality_monitor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">correction_threshold</span> <span class="o">=</span> <span class="mf">0.7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_correction_enabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_and_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;자동 보정 체크 및 실행&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_correction_enabled</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_monitor</span><span class="o">.</span><span class="n">get_performance_summary</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;avg_confidence&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">correction_threshold</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;성능 저하 감지 - 자동 보정 시작&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">perform_auto_correction</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_auto_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;자동 보정 수행&quot;&quot;&quot;</span>
+        <span class="c1"># 1. 캘리브레이션 재검증</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recalibrate_if_needed</span><span class="p">()</span>
+
+        <span class="c1"># 2. 거리 보정 팩터 업데이트</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_correction_factors</span><span class="p">()</span>
+
+        <span class="c1"># 3. 검출 파라미터 조정</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjust_detection_parameters</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">recalibrate_if_needed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;필요시 재캘리브레이션&quot;&quot;&quot;</span>
+        <span class="c1"># 캘리브레이션 품질 검사</span>
+        <span class="n">calibration_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_calibration_quality</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">calibration_quality</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;캘리브레이션 품질 저하 - 재캘리브레이션 수행&quot;</span><span class="p">)</span>
+            <span class="c1"># 재캘리브레이션 로직 실행</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_correction_factors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;보정 팩터 업데이트&quot;&quot;&quot;</span>
+        <span class="c1"># 최근 결과를 기반으로 보정 팩터 재계산</span>
+        <span class="n">recent_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_monitor</span><span class="o">.</span><span class="n">get_recent_results</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">new_factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_updated_factors</span><span class="p">(</span><span class="n">recent_results</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;보정 팩터 업데이트: </span><span class="si">{</span><span class="n">new_factors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">adjust_detection_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;검출 파라미터 조정&quot;&quot;&quot;</span>
+        <span class="c1"># 검출률이 낮은 경우 파라미터 완화</span>
+        <span class="n">detection_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_monitor</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;detection_rate&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">detection_rate</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;검출률 저하 - 파라미터 조정&quot;</span><span class="p">)</span>
+            <span class="c1"># 검출 파라미터 완화 로직 실행</span>
+</code></pre></div>
+
+<hr />
+<h2>🎯 결론</h2>
+<h3>핵심 문제점</h3>
+<ol>
+<li><strong>좌표계 불일치</strong>: 캘리브레이션과 드라이버 이미지의 좌표계 차이</li>
+<li><strong>깊이 계산 오류</strong>: 시차 기반 깊이 계산의 부정확성</li>
+<li><strong>측정 오차 누적</strong>: 여러 단계에서의 오차 증폭</li>
+</ol>
+<h3>해결 방안</h3>
+<ol>
+<li><strong>ROI 기반 재캘리브레이션</strong>: 동일한 조건에서 정확한 좌표계 구축</li>
+<li><strong>실제 거리 측정 보정</strong>: 절대적 기준점을 통한 정확도 향상</li>
+<li><strong>다중 방법 검증</strong>: 신뢰성과 정확도를 동시에 확보</li>
+</ol>
+<h3>예상 성과</h3>
+<ul>
+<li><strong>측정 정확도</strong>: 20% → 90% (4.5배 개선)</li>
+<li><strong>시스템 신뢰도</strong>: 70% → 95% (1.4배 개선)</li>
+<li><strong>측정 성공률</strong>: 95% → 99% (유지)</li>
+</ul>
+<h3>구현 우선순위</h3>
+<ol>
+<li><strong>Phase 1</strong>: ROI 기반 재캘리브레이션 (최우선)</li>
+<li><strong>Phase 2</strong>: 거리 측정 보정 (중요)</li>
+<li><strong>Phase 3</strong>: 다중 방법 검증 (보완)</li>
+<li><strong>Phase 4</strong>: 시스템 최적화 (완성)</li>
+</ol>
+<p>이러한 체계적인 접근을 통해 골프공 물리량 분석 시스템의 정확도와 신뢰성을 크게 향상시킬 수 있을 것으로 기대됩니다.</p>
+<hr />
+<p><em>본 보고서는 2024년 골프공 물리량 분석 시스템 문제 진단 및 해결 방안 연구의 결과입니다.</em></p>
+    </body>
+    </html>
+    
